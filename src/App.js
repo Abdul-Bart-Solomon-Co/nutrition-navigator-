@@ -1,23 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
-
+import axios from "axios"
 function App() {
+
+  // Axios call for search/instant endpoint
+  // axios({
+  //   method: "GET",
+  //   dataResponse: "json",
+  //   url: `https://trackapi.nutritionix.com/v2/search/instant`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "x-app-id": "69faf9cb",
+  //     "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+  //   },
+  //   params: {
+  //     "query": "burger"
+  //   }
+  // }).then((res) => {
+  //   console.log(res.data)
+  // })
+
+  //Axios call for /v2/natural/nutrients endpoint
+
+  // axios({
+  //   method: "POST",
+  //   dataResponse: "json",
+  //   url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "x-app-id": "69faf9cb",
+  //     "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+  //   },
+  //   data: {
+  //     "query": "burger"
+  //   }
+  // }).then((res) => {
+  //   console.log(res.data)
+  // })
+
+   axios({
+    method: "GET",
+    dataResponse: "json",
+     url: `https://trackapi.nutritionix.com/v2/search/item`,
+    headers: {
+      "Content-Type": "application/json",
+      "x-app-id": "69faf9cb",
+      "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+    },
+    params: {
+      nix_item_id: "513fc9e73fe3ffd40300109f"
+    }
+  }).then((res) => {
+    console.log(res.data)
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
     </div>
   );
 }
