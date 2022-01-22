@@ -1,6 +1,42 @@
 import './App.css';
-
+import axios from "axios"
 function App() {
+
+  // Axios call for search/instant endpoint
+  // axios({
+  //   method: "GET",
+  //   dataResponse: "json",
+  //   url: `https://trackapi.nutritionix.com/v2/search/instant`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "x-app-id": "69faf9cb",
+  //     "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+  //   },
+  //   params: {
+  //     "query": "burger"
+  //   }
+  // }).then((res) => {
+  //   console.log(res.data)
+  // })
+
+  //Axios call for /v2/natural/nutrients endpoint
+
+  axios({
+    method: "GET",
+    dataResponse: "json",
+    url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
+    headers: {
+      "Content-Type": "application/json",
+      "x-app-id": "69faf9cb",
+      "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+    },
+    params: {
+      "query": "burger"
+    }
+  }).then((res) => {
+    console.log(res.data)
+  })
+
   return (
     <div>
       
