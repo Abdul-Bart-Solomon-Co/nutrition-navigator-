@@ -23,3 +23,13 @@ function App() {
 }
 
 export default App;
+
+// Get user text input from search 
+// Make api call (search instant endpoint)
+// use state to hold response from axios 
+// map through state and display on page 
+// when user clicks food choice make second api call (nutrition endpoint)
+// put response into state 
+// display information on page 
+// if the comparison btn is add current food choice to comparison useState 
+
