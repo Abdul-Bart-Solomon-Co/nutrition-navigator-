@@ -1,11 +1,10 @@
 import './App.css';
 import { filterByTagId, filteredNutrients } from "./utils.js";
 import axios from "axios";
-import { Route, Routes, Links, Link } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 
 
 import { useState, useEffect } from 'react';
-import NutrientsDetail from './components/NutrientsDetails';
 import Comparisons from './components/Comparisons';
 import { FoodList } from './components/FoodList';
 function App() {
