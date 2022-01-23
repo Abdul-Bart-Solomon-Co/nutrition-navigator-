@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { useState, useEffect } from 'react';
 import NutrientsDetail from './components/NutrientsDetails';
+import Comparisons from './components/Comparisons';
 function App() {
 
   const [ userInput, setUserInput ] = useState('');
@@ -11,7 +12,8 @@ function App() {
   const [ foodArray, setFoodArray ] = useState([]);
   const [ foodItemName, setFoodItemName ] = useState("");
   // nutrition details
-  const [ foodItemDetails, setFoodItemDetails ] = useState({})
+  const [ foodItemDetails, setFoodItemDetails ] = useState({});
+  const [ comparisonsArray, setComparisonsArray ] = useState([]);
 
   // Axios call for search/instant endpoint
   useEffect(() => {
@@ -113,6 +115,10 @@ function App() {
     setFoodItemName(foodName);
   }
 
+  const handleCompare = () => {
+    setComparisonsArray([...comparisonsArray, foodItemDetails])
+  }
+
 
   return (
     <div>
@@ -141,11 +147,10 @@ function App() {
             })
           }
           { Object.keys(foodItemDetails).length > 0 &&
-            <NutrientsDetail {...foodItemDetails} />
+            <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} />
           }
-
-         
         </section>
+        <Comparisons comparisonsArray={comparisonsArray}/>
       </main>
     </div>
   );

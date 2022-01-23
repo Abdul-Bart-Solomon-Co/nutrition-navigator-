@@ -23,7 +23,7 @@ const NutrientsDetail = (props) => {
                     })
                 }
             </ul>
-
+            <button onClick={props.handleCompare}>Compare</button>
         </div>
     )
 }
