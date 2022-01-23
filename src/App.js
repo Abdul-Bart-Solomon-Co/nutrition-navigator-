@@ -2,6 +2,7 @@ import './App.css';
 import axios from "axios";
 
 import { useState, useEffect } from 'react';
+import NutrientsDetail from './components/NutrientsDetails';
 function App() {
 
   const [ userInput, setUserInput ] = useState('');
@@ -53,17 +54,23 @@ function App() {
       }).then((res) => {
         // console.log(res.data)
        
-        const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbhydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
+        const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
 
         const nutritionObj = {}
 
         const foodObj = res.data.foods[0]
         for(let key in foodObj) {
           if(someArray.includes(key)){
-            nutritionObj[key] = foodObj[key]
+            // error handling for null value in foodObj
+            if(foodObj[key] === null) {
+              nutritionObj[key] = 'N/A';
+            } else {
+              nutritionObj[key] = foodObj[key]
+            }
           }
         }
-       setFoodItemDetails(nutritionObj)
+
+       setFoodItemDetails(nutritionObj);
       })
     }
   }, [foodItemName])
@@ -123,12 +130,15 @@ function App() {
             foodArray.map((foodItem) => {
               return(
                 <div key={foodItem.tag_id + foodItem.food_name}>
-                  <img src={foodItem.photo.thumb} alt={`A photo of ${foodItem.food_name}`} />
+                  <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
                   <h2>{foodItem.food_name}</h2>
                   <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
                 </div>
               )
             })
+          }
+          { Object.keys(foodItemDetails).length > 0 &&
+            <NutrientsDetail {...foodItemDetails} />
           }
 
          
