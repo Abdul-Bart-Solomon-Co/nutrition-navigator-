@@ -8,7 +8,8 @@ function App() {
   const [ searchTerm, setSearchTerm ] = useState('');
   const [ foodArray, setFoodArray ] = useState([]);
   const [ foodItemName, setFoodItemName ] = useState("");
-  const [ foodItemDetail, setFoodItemDetail ] = useState({})
+  // nutrition details
+  const [ foodItemDetails, setFoodItemDetails ] = useState({})
 
   // Axios call for search/instant endpoint
   useEffect(() => {
@@ -50,10 +51,19 @@ function App() {
           "query": foodItemName
         }
       }).then((res) => {
-        console.log(res.data)
+        // console.log(res.data)
        
         const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbhydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
-       
+
+        const nutritionObj = {}
+
+        const foodObj = res.data.foods[0]
+        for(let key in foodObj) {
+          if(someArray.includes(key)){
+            nutritionObj[key] = foodObj[key]
+          }
+        }
+       setFoodItemDetails(nutritionObj)
       })
     }
   }, [foodItemName])
@@ -120,6 +130,8 @@ function App() {
               )
             })
           }
+
+         
         </section>
       </main>
     </div>
