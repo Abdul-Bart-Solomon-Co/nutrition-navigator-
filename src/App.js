@@ -1,23 +1,34 @@
 import './App.css';
-import axios from "axios"
+import axios from "axios";
+
+import { useState, useEffect } from 'react';
 function App() {
 
+  const [ userInput, setUserInput ] = useState('');
+  const [ searchTerm, setSearchTerm ] = useState('');
+
+
   // Axios call for search/instant endpoint
-  // axios({
-  //   method: "GET",
-  //   dataResponse: "json",
-  //   url: `https://trackapi.nutritionix.com/v2/search/instant`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "x-app-id": "69faf9cb",
-  //     "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
-  //   },
-  //   params: {
-  //     "query": "burger"
-  //   }
-  // }).then((res) => {
-  //   console.log(res.data)
-  // })
+  useEffect(() => {
+    if(searchTerm.length > 0) {
+      axios({
+        method: "GET",
+        dataResponse: "json",
+        url: `https://trackapi.nutritionix.com/v2/search/instant`,
+        headers: {
+          "Content-Type": "application/json",
+          "x-app-id": "081b5ced",
+          "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+        },
+        params: {
+          "query": searchTerm
+        }
+      }).then((res) => {
+        console.log(res.data)
+      })
+    }
+
+  }, [searchTerm]);
 
   //Axios call for /v2/natural/nutrients endpoint
 
@@ -27,8 +38,8 @@ function App() {
   //   url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
   //   headers: {
   //     "Content-Type": "application/json",
-  //     "x-app-id": "69faf9cb",
-  //     "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
+  //     "x-app-id": "081b5ced",
+  //     "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
   //   },
   //   data: {
   //     "query": "burger"
@@ -37,25 +48,45 @@ function App() {
   //   console.log(res.data)
   // })
 
-   axios({
-    method: "GET",
-    dataResponse: "json",
-     url: `https://trackapi.nutritionix.com/v2/search/item`,
-    headers: {
-      "Content-Type": "application/json",
-      "x-app-id": "69faf9cb",
-      "x-app-key": "90db89eddcef2e54eea4099c6ab38907"
-    },
-    params: {
-      nix_item_id: "513fc9e73fe3ffd40300109f"
-    }
-  }).then((res) => {
-    console.log(res.data)
-  })
+  //  axios({
+  //   method: "GET",
+  //   dataResponse: "json",
+  //    url: `https://trackapi.nutritionix.com/v2/search/item`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "x-app-id": "081b5ced",
+  //     "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+  //   },
+  //   params: {
+  //     nix_item_id: "513fc9e73fe3ffd40300109f"
+  //   }
+  // }).then((res) => {
+  //   console.log(res.data)
+  // })
+
+  // handles the form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    setSearchTerm(userInput);
+    setUserInput('');
+  }
+
+  // handles setting state based on user input
+  const handleChange = (event) => {
+    setUserInput(event.target.value);
+  }
+
 
   return (
     <div>
-      
+      <header className='headerSection'>
+            <h1>Nutrition Navigator</h1>
+            <form action="#" onSubmit={handleSubmit}>
+              <label htmlFor="searchInput">Enter a Food Item:</label>
+              <input type='text' onChange={handleChange} value={userInput} />
+            </form>
+      </header>
     </div>
   );
 }
