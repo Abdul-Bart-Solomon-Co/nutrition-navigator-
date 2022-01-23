@@ -1,12 +1,17 @@
 import './App.css';
+import { filterByTagId, filteredNutrients } from "./utils.js";
 import axios from "axios";
 
 import { useState, useEffect } from 'react';
+import NutrientsDetail from './components/NutrientsDetails';
 function App() {
 
   const [ userInput, setUserInput ] = useState('');
   const [ searchTerm, setSearchTerm ] = useState('');
-
+  const [ foodArray, setFoodArray ] = useState([]);
+  const [ foodItemName, setFoodItemName ] = useState("");
+  // nutrition details
+  const [ foodItemDetails, setFoodItemDetails ] = useState({})
 
   // Axios call for search/instant endpoint
   useEffect(() => {
@@ -24,7 +29,8 @@ function App() {
           "query": searchTerm
         }
       }).then((res) => {
-        console.log(res.data)
+        const commonArray =res.data.common;
+        setFoodArray(filterByTagId(commonArray))
       })
     }
 
@@ -32,21 +38,47 @@ function App() {
 
   //Axios call for /v2/natural/nutrients endpoint
 
-  // axios({
-  //   method: "POST",
-  //   dataResponse: "json",
-  //   url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "x-app-id": "081b5ced",
-  //     "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
-  //   },
-  //   data: {
-  //     "query": "burger"
-  //   }
-  // }).then((res) => {
-  //   console.log(res.data)
-  // })
+  useEffect( () => {
+    if (foodItemName.length > 0){
+      axios({
+        method: "POST",
+        dataResponse: "json",
+        url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
+        headers: {
+          "Content-Type": "application/json",
+          "x-app-id": "081b5ced",
+          "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+        },
+        data: {
+          "query": foodItemName
+        }
+      }).then((res) => {
+        // console.log(res.data)
+       
+        const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
+
+        const nutritionObj = {}
+
+        const foodObj = res.data.foods[0]
+        for(let key in foodObj) {
+          if(someArray.includes(key)){
+            // error handling for null value in foodObj
+            if(foodObj[key] === null) {
+              nutritionObj[key] = 'N/A';
+            } else {
+              nutritionObj[key] = foodObj[key]
+            }
+          }
+        }
+        const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
+        nutritionObj.full_nutrients = renamedNutrients;
+
+       setFoodItemDetails(nutritionObj);
+      })
+    }
+  }, [foodItemName])
+
+  
 
   //  axios({
   //   method: "GET",
@@ -77,6 +109,10 @@ function App() {
     setUserInput(event.target.value);
   }
 
+  const handleDetailClick = (foodName) => {
+    setFoodItemName(foodName);
+  }
+
 
   return (
     <div>
@@ -87,6 +123,30 @@ function App() {
               <input type='text' onChange={handleChange} value={userInput} />
             </form>
       </header>
+      <main>
+        <section>
+          <div>
+            <button>Find items</button>
+            <button>Saved items</button>
+          </div>
+          {
+            foodArray.map((foodItem) => {
+              return(
+                <div key={foodItem.tag_id + foodItem.food_name}>
+                  <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
+                  <h2>{foodItem.food_name}</h2>
+                  <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
+                </div>
+              )
+            })
+          }
+          { Object.keys(foodItemDetails).length > 0 &&
+            <NutrientsDetail {...foodItemDetails} />
+          }
+
+         
+        </section>
+      </main>
     </div>
   );
 }
