@@ -1,5 +1,5 @@
 import './App.css';
-import { filteredArray } from "./utils.js"
+import { filterByTagId, filteredNutrients } from "./utils.js";
 import axios from "axios";
 
 import { useState, useEffect } from 'react';
@@ -30,7 +30,7 @@ function App() {
         }
       }).then((res) => {
         const commonArray =res.data.common;
-        setFoodArray(filteredArray(commonArray))
+        setFoodArray(filterByTagId(commonArray))
       })
     }
 
@@ -70,6 +70,8 @@ function App() {
             }
           }
         }
+        const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
+        nutritionObj.full_nutrients = renamedNutrients;
 
        setFoodItemDetails(nutritionObj);
       })
