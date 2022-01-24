@@ -1,7 +1,7 @@
 import NutrientsDetail from "./NutrientsDetails"
 
 
-export const FoodList = ({ foodArray, handleDetailClick, foodItemDetails, handleCompare }) => {
+export const FoodList = ({ foodArray, handleDetailClick, foodItemDetails, handleCompare, handleSave }) => {
     
 
     return(
@@ -22,7 +22,7 @@ export const FoodList = ({ foodArray, handleDetailClick, foodItemDetails, handle
             
             {
             Object.keys(foodItemDetails).length > 0 &&
-                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} />
+                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
             }
         </section>
     )
