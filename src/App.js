@@ -17,6 +17,9 @@ function App() {
   const [ foodItemDetails, setFoodItemDetails ] = useState({});
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
 
+  // list of saved foods
+  const [ savedFood, setSavedFood ] = useState([]);
+
   // Axios call for search/instant endpoint
   useEffect(() => {
     if(searchTerm.length > 0) {
@@ -135,7 +138,7 @@ function App() {
         <section>
           <div>
             <Link to="/">Find Items</Link>
-            <button>Saved items</button>
+            <Link to="/savedItems" >Saved Items</Link>
           </div>
           {/* <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick}/> */}
 
@@ -146,6 +149,8 @@ function App() {
 
       <Routes>
         <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare}/>}/>
+
+        <Route path='/savedItems' element={ <FoodList foodArray={savedFood} handleDetailClick={handleDetailClick} foodItemDetails={savedFoodDetails} handleCompare={handleCompare}/>}/>
       </Routes>
     </div>
   );
