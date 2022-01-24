@@ -1,7 +1,6 @@
 const NutrientsDetail = (props) => {
     // const [ props.nf_calories, nf_dietary_fiber, nf_protein, nf_saturated_fat, nf_sugars, nf_total_carbohydrate, nf_total_fat, nf_sodium, full_nutrients, food_name, brand_name, photo ] = props;
     
-    console.log(props.handleCompare)
     return(
         <div>
             <ul>
@@ -25,9 +24,11 @@ const NutrientsDetail = (props) => {
                 }
             </ul>
             <button onClick={props.handleCompare}>Compare</button>
+
             { props.handleSave &&
-            <button onClick={props.handleSave}>Save</button>
+            <button onClick={() => props.handleSave(props.food_name)}>Save</button>
             }
+
             {props.handleRemove &&
             <button onClick={props.handleRemove}>Remove</button>
             }

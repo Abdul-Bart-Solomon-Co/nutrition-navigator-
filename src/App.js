@@ -162,14 +162,24 @@ function App() {
   }
 
   // handles uploading data to firebase
-  const handleSave = () => {
-     // create a reference to our database
-    const database = getDatabase(firebaseProject);
+  const handleSave = (foodName) => {
+    let someBool = false;
+    
+    savedFood.forEach( (individualFood) => {
+      if(individualFood.foodDetails.food_name === foodName){
+        someBool = true;
+      }
+    })
+    if(!someBool){
+      // create a reference to our database
+     const database = getDatabase(firebaseProject);
+ 
+     const dbRootAddress = ref(database);
+ 
+     // push the value from the user into the database
+     push(dbRootAddress, foodItemDetails);
 
-    const dbRootAddress = ref(database);
-
-    // push the value from the user into the database
-    push(dbRootAddress, foodItemDetails);
+    }
   }
 
 
