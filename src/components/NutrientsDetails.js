@@ -1,7 +1,7 @@
 const NutrientsDetail = (props) => {
     // const [ props.nf_calories, nf_dietary_fiber, nf_protein, nf_saturated_fat, nf_sugars, nf_total_carbohydrate, nf_total_fat, nf_sodium, full_nutrients, food_name, brand_name, photo ] = props;
     
-    console.log(props)
+    // console.log(props)
     return(
         <div>
             <ul>

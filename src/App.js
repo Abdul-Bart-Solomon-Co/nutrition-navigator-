@@ -112,7 +112,7 @@ function App() {
 
       for (let key in data) {
         // fill the array with { key: book1, name: "Title of the book"} type objects
-        newFood.push({key: key, name: data[key]});
+        newFood.push({key: key, foodDetails: data[key]});
       }
 
       // put new books into books
