@@ -2,6 +2,9 @@ import './App.css';
 import { filterByTagId, filteredNutrients } from "./utils.js";
 import axios from "axios";
 import { Route, Routes, Link } from "react-router-dom";
+import firebaseProject from './firebaseSetup.js';
+import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { SavedList } from './components/SavedList';
 
 
 import { useState, useEffect } from 'react';
@@ -85,6 +88,40 @@ function App() {
     }
   }, [foodItemName])
 
+  // use effect to handle firebase
+    // get the data from firebase
+  useEffect(() => {
+    // setting up connection to database
+    // our notes called FirebaseProject just firebase
+    const database = getDatabase(firebaseProject);
+
+    // this is dbRef in our notes, BUT, what it IS is the location of the root of our database! database root address! where our data goes to live a nice quiet life hopefully
+    const dbRootAddress = ref(database);
+
+    onValue(dbRootAddress, (response) => {
+      // console.log(response.val());
+      // format the data we get back first
+      // our object from firebase looks like this
+      // Object { Book1: "Catcher In the Rye", Book2: "To Kill A Mockingbird", Book3: "Clifford The Big Red Dog" }
+
+      const newFood = [];
+
+      // look through our data and put the data in the temp array
+      // newBooks is called newState in our notes
+      const data = response.val();
+
+      for (let key in data) {
+        // fill the array with { key: book1, name: "Title of the book"} type objects
+        newFood.push({key: key, name: data[key]});
+      }
+
+      // put new books into books
+      setSavedFood(newFood);
+
+    })
+  }, []);
+
+
   
 
   //  axios({
@@ -124,6 +161,17 @@ function App() {
     setComparisonsArray([...comparisonsArray, foodItemDetails])
   }
 
+  // handles uploading data to firebase
+  const handleSave = () => {
+     // create a reference to our database
+    const database = getDatabase(firebaseProject);
+
+    const dbRootAddress = ref(database);
+
+    // push the value from the user into the database
+    push(dbRootAddress, foodItemDetails);
+  }
+
 
   return (
     <div>
@@ -148,9 +196,9 @@ function App() {
       </main>
 
       <Routes>
-        <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare}/>}/>
+        <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>}/>
 
-        <Route path='/savedItems' element={ <FoodList foodArray={savedFood} handleDetailClick={handleDetailClick} foodItemDetails={savedFoodDetails} handleCompare={handleCompare}/>}/>
+        <Route path='/savedItems' element={ <SavedList foodArray={savedFood} />}/>
       </Routes>
     </div>
   );
