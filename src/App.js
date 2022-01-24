@@ -1,10 +1,12 @@
 import './App.css';
 import { filterByTagId, filteredNutrients } from "./utils.js";
 import axios from "axios";
+import { Route, Routes, Link } from "react-router-dom";
+
 
 import { useState, useEffect } from 'react';
-import NutrientsDetail from './components/NutrientsDetails';
 import Comparisons from './components/Comparisons';
+import { FoodList } from './components/FoodList';
 function App() {
 
   const [ userInput, setUserInput ] = useState('');
@@ -14,6 +16,9 @@ function App() {
   // nutrition details
   const [ foodItemDetails, setFoodItemDetails ] = useState({});
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
+
+  // list of saved foods
+  const [ savedFood, setSavedFood ] = useState([]);
 
   // Axios call for search/instant endpoint
   useEffect(() => {
@@ -132,29 +137,26 @@ function App() {
       <main>
         <section>
           <div>
-            <button>Find items</button>
-            <button>Saved items</button>
+            <Link to="/">Find Items</Link>
+            <Link to="/savedItems" >Saved Items</Link>
           </div>
-          {
-            foodArray.map((foodItem) => {
-              return(
-                <div key={foodItem.tag_id + foodItem.food_name}>
-                  <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                  <h2>{foodItem.food_name}</h2>
-                  <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
-                </div>
-              )
-            })
-          }
-          { Object.keys(foodItemDetails).length > 0 &&
-            <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} />
-          }
+          {/* <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick}/> */}
+
+          
         </section>
         <Comparisons comparisonsArray={comparisonsArray}/>
       </main>
+
+      <Routes>
+        <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare}/>}/>
+
+        <Route path='/savedItems' element={ <FoodList foodArray={savedFood} handleDetailClick={handleDetailClick} foodItemDetails={savedFoodDetails} handleCompare={handleCompare}/>}/>
+      </Routes>
     </div>
   );
 }
+
+
 
 export default App;
 
