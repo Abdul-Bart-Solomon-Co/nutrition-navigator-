@@ -190,15 +190,17 @@ function App() {
           </div>
           {/* <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick}/> */}
 
-          
+            <Link to="/comparison">Comparisons</Link>
         </section>
-        <Comparisons comparisonsArray={comparisonsArray}/>
+       
       </main>
 
       <Routes>
         <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>}/>
 
         <Route path='/savedItems' element={ <SavedList foodArray={savedFood} />}/>
+
+        <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
       </Routes>
     </div>
   );
