@@ -1,7 +1,7 @@
 import NutrientsDetail from "./NutrientsDetails"
 import axios from "axios";
 import { useState, useEffect } from 'react';
-import { filterByTagId, filteredNutrients } from "../utils.js";
+import { filterByTagId, makeNutritionObj } from "../utils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -55,7 +55,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         }).catch((error) => {
             toast.error("Sorry there was a problem getting data from the API")
         })
-        }
+     }
 
     }, [searchTerm]);
 
@@ -74,29 +74,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             "query": foodItemName
             }
         }).then((res) => {
-            // console.log(res.data)
-        
-            const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
-
-            const nutritionObj = {}
-
             const foodObj = res.data.foods[0]
-            if(Object.keys(foodObj).length !== 0){
-                for (let key in foodObj) {
-                    if (someArray.includes(key)) {
-                        // error handling for null value in foodObj
-                        if (foodObj[key] === null) {
-                            nutritionObj[key] = 'N/A';
-                        } else {
-                            nutritionObj[key] = foodObj[key]
-                        }
-                    }
-                }
-                const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
-                nutritionObj.full_nutrients = renamedNutrients;
-
-                setFoodItemDetails(nutritionObj);
-            } else{
+            if (Object.keys(foodObj).length !== 0) {
+                setFoodItemDetails(makeNutritionObj(res));
+            } else {
                 toast.error("Sorry, looks like there are no nutrient details")
             }
             
@@ -122,28 +103,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                     "nix_item_id": brandId
                 }
             }).then((res) => {
-                // console.log(res.data)
-
-                const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
-
-                const nutritionObj = {}
 
                 const foodObj = res.data.foods[0]
                 if (Object.keys(foodObj).length !== 0) {
-                    for (let key in foodObj) {
-                        if (someArray.includes(key)) {
-                            // error handling for null value in foodObj
-                            if (foodObj[key] === null) {
-                                nutritionObj[key] = 'N/A';
-                            } else {
-                                nutritionObj[key] = foodObj[key]
-                            }
-                        }
-                    }
-                    const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
-                    nutritionObj.full_nutrients = renamedNutrients;
-
-                    setFoodItemDetails(nutritionObj);
+                    setFoodItemDetails(makeNutritionObj(res));
                 } else {
                     toast.error("Sorry, looks like there are no nutrient details")
                 }
