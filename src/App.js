@@ -112,7 +112,7 @@ function App() {
 
       for (let key in data) {
         // fill the array with { key: book1, name: "Title of the book"} type objects
-        newFood.push({key: key, name: data[key]});
+        newFood.push({key: key, foodDetails: data[key]});
       }
 
       // put new books into books
@@ -162,14 +162,24 @@ function App() {
   }
 
   // handles uploading data to firebase
-  const handleSave = () => {
-     // create a reference to our database
-    const database = getDatabase(firebaseProject);
+  const handleSave = (foodName) => {
+    let someBool = false;
+    
+    savedFood.forEach( (individualFood) => {
+      if(individualFood.foodDetails.food_name === foodName){
+        someBool = true;
+      }
+    })
+    if(!someBool){
+      // create a reference to our database
+     const database = getDatabase(firebaseProject);
+ 
+     const dbRootAddress = ref(database);
+ 
+     // push the value from the user into the database
+     push(dbRootAddress, foodItemDetails);
 
-    const dbRootAddress = ref(database);
-
-    // push the value from the user into the database
-    push(dbRootAddress, foodItemDetails);
+    }
   }
 
 
@@ -190,15 +200,17 @@ function App() {
           </div>
           {/* <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick}/> */}
 
-          
+            <Link to="/comparison">Comparisons</Link>
         </section>
-        <Comparisons comparisonsArray={comparisonsArray}/>
+       
       </main>
 
       <Routes>
         <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>}/>
 
         <Route path='/savedItems' element={ <SavedList foodArray={savedFood} />}/>
+
+        <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
       </Routes>
     </div>
   );
