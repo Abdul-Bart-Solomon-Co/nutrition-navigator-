@@ -116,19 +116,17 @@ function App() {
     
       </header>
       <main>
-        <section>
-            
-        </section>
        
+        <Routes>
+          <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
+
+          <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
+
+          <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
+        </Routes>
+
       </main>
 
-      <Routes>
-        <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
-
-        <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
-
-        <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
-      </Routes>
     </div>
   );
 }
