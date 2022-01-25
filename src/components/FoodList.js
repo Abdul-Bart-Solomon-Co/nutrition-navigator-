@@ -5,7 +5,7 @@ import { filterByTagId, filteredNutrients } from "../utils.js";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, push } from 'firebase/database';
 
 
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
@@ -139,7 +139,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             }
             
             {
-            Object.keys(foodItemDetails).length > 0 &&
+            Object.keys(foodItemDetails).length > 0 && foodArray.length > 0 &&
                 <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
             }
         </section>

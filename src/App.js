@@ -104,19 +104,20 @@ function App() {
   return (
     <div>
       <header className='headerSection'>
-            
+            <nav>
+              <ul>
+                <li><Link to="/">Find Items</Link></li>
+                <li><Link to="/saved" >Saved Items</Link></li>
+                <li><Link to="/comparison">Comparisons</Link></li>
+              </ul>
+            </nav>
             
             <h1>Nutrition Navigator</h1>
     
       </header>
       <main>
         <section>
-          <div>
-            <Link to="/">Find Items</Link>
-            <Link to="/savedItems" >Saved Items</Link>
-          </div>
-
-            <Link to="/comparison">Comparisons</Link>
+            
         </section>
        
       </main>
@@ -124,7 +125,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
 
-        <Route path='/savedItems' element={ <SavedList foodArray={savedFood} />}/>
+        <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
         <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
       </Routes>
