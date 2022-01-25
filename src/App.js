@@ -1,9 +1,7 @@
 import './App.css';
-import { filterByTagId, filteredNutrients } from "./utils.js";
-import axios from "axios";
 import { Route, Routes, Link } from "react-router-dom";
 import firebaseProject from './firebaseSetup.js';
-import { getDatabase, ref, onValue, push } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 
 
@@ -12,81 +10,37 @@ import Comparisons from './components/Comparisons';
 import { FoodList } from './components/FoodList';
 function App() {
 
-  const [ userInput, setUserInput ] = useState('');
-  const [ searchTerm, setSearchTerm ] = useState('');
-  const [ foodArray, setFoodArray ] = useState([]);
-  const [ foodItemName, setFoodItemName ] = useState("");
-  // nutrition details
+
   const [ foodItemDetails, setFoodItemDetails ] = useState({});
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
 
   // list of saved foods
   const [ savedFood, setSavedFood ] = useState([]);
 
+  // brings up branded/common products
   // Axios call for search/instant endpoint
-  useEffect(() => {
-    if(searchTerm.length > 0) {
-      axios({
-        method: "GET",
-        dataResponse: "json",
-        url: `https://trackapi.nutritionix.com/v2/search/instant`,
-        headers: {
-          "Content-Type": "application/json",
-          "x-app-id": "081b5ced",
-          "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
-        },
-        params: {
-          "query": searchTerm
-        }
-      }).then((res) => {
-        const commonArray =res.data.common;
-        setFoodArray(filterByTagId(commonArray))
-      })
-    }
+  // useEffect(() => {
+  //   if(searchTerm.length > 0) {
+  //     axios({
+  //       method: "GET",
+  //       dataResponse: "json",
+  //       url: `https://trackapi.nutritionix.com/v2/search/instant`,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "x-app-id": "081b5ced",
+  //         "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+  //       },
+  //       params: {
+  //         "query": searchTerm
+  //       }
+  //     }).then((res) => {
+  //       const commonArray =res.data.common;
+  //       setFoodArray(filterByTagId(commonArray))
+  //     })
+  //   }
 
-  }, [searchTerm]);
+  // }, [searchTerm]);
 
-  //Axios call for /v2/natural/nutrients endpoint
-
-  useEffect( () => {
-    if (foodItemName.length > 0){
-      axios({
-        method: "POST",
-        dataResponse: "json",
-        url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
-        headers: {
-          "Content-Type": "application/json",
-          "x-app-id": "081b5ced",
-          "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
-        },
-        data: {
-          "query": foodItemName
-        }
-      }).then((res) => {
-        // console.log(res.data)
-       
-        const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
-
-        const nutritionObj = {}
-
-        const foodObj = res.data.foods[0]
-        for(let key in foodObj) {
-          if(someArray.includes(key)){
-            // error handling for null value in foodObj
-            if(foodObj[key] === null) {
-              nutritionObj[key] = 'N/A';
-            } else {
-              nutritionObj[key] = foodObj[key]
-            }
-          }
-        }
-        const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
-        nutritionObj.full_nutrients = renamedNutrients;
-
-       setFoodItemDetails(nutritionObj);
-      })
-    }
-  }, [foodItemName])
 
   // use effect to handle firebase
     // get the data from firebase
@@ -140,75 +94,38 @@ function App() {
   //   console.log(res.data)
   // })
 
-  // handles the form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    setSearchTerm(userInput);
-    setUserInput('');
-  }
-
-  // handles setting state based on user input
-  const handleChange = (event) => {
-    setUserInput(event.target.value);
-  }
-
-  const handleDetailClick = (foodName) => {
-    setFoodItemName(foodName);
-  }
 
   const handleCompare = () => {
     setComparisonsArray([...comparisonsArray, foodItemDetails])
   }
 
-  // handles uploading data to firebase
-  const handleSave = (foodName) => {
-    let someBool = false;
-    
-    savedFood.forEach( (individualFood) => {
-      if(individualFood.foodDetails.food_name === foodName){
-        someBool = true;
-      }
-    })
-    if(!someBool){
-      // create a reference to our database
-     const database = getDatabase(firebaseProject);
- 
-     const dbRootAddress = ref(database);
- 
-     // push the value from the user into the database
-     push(dbRootAddress, foodItemDetails);
-
-    }
-  }
 
 
   return (
     <div>
       <header className='headerSection'>
+            <nav>
+              <ul>
+                <li><Link to="/">Find Items</Link></li>
+                <li><Link to="/saved" >Saved Items</Link></li>
+                <li><Link to="/comparison">Comparisons</Link></li>
+              </ul>
+            </nav>
+            
             <h1>Nutrition Navigator</h1>
-            <form action="#" onSubmit={handleSubmit}>
-              <label htmlFor="searchInput">Enter a Food Item:</label>
-              <input type='text' onChange={handleChange} value={userInput} />
-            </form>
+    
       </header>
       <main>
         <section>
-          <div>
-            <Link to="/">Find Items</Link>
-            <Link to="/savedItems" >Saved Items</Link>
-          </div>
-          {/* <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick}/> */}
-
-            <Link to="/comparison">Comparisons</Link>
+            
         </section>
        
       </main>
 
       <Routes>
-        <Route path='/' element={ <FoodList foodArray={foodArray} handleDetailClick={handleDetailClick} foodItemDetails={foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>}/>
+        <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
 
-        <Route path='/savedItems' element={ <SavedList foodArray={savedFood} />}/>
+        <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
         <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
       </Routes>
