@@ -2,6 +2,8 @@ import NutrientsDetail from "./NutrientsDetails"
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { filterByTagId, filteredNutrients } from "../utils.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
@@ -33,8 +35,15 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             "query": searchTerm
             }
         }).then((res) => {
-            const commonArray =res.data.common;
-            setFoodArray(filterByTagId(commonArray))
+            if(res.data.common.length > 0 ){
+                const commonArray = res.data.common;
+                setFoodArray(filterByTagId(commonArray))
+            } else {
+                toast.error("Sorry no results found")
+            }
+            
+        }).catch((error) => {
+            toast.error("Sorry there was a problem getting data from the API")
         })
         }
 
@@ -62,20 +71,27 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             const nutritionObj = {}
 
             const foodObj = res.data.foods[0]
-            for(let key in foodObj) {
-            if(someArray.includes(key)){
-                // error handling for null value in foodObj
-                if(foodObj[key] === null) {
-                nutritionObj[key] = 'N/A';
-                } else {
-                nutritionObj[key] = foodObj[key]
+            if(Object.keys(foodObj).length !== 0){
+                for (let key in foodObj) {
+                    if (someArray.includes(key)) {
+                        // error handling for null value in foodObj
+                        if (foodObj[key] === null) {
+                            nutritionObj[key] = 'N/A';
+                        } else {
+                            nutritionObj[key] = foodObj[key]
+                        }
+                    }
                 }
-            }
-            }
-            const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
-            nutritionObj.full_nutrients = renamedNutrients;
+                const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
+                nutritionObj.full_nutrients = renamedNutrients;
 
-        setFoodItemDetails(nutritionObj);
+                setFoodItemDetails(nutritionObj);
+            } else{
+                toast.error("Sorry, looks like there are no nutrient details")
+            }
+            
+        }).catch((error) => {
+            toast.error("Sorry there was trouble getting nutrient details from the API")
         })
         }
     }, [foodItemName])
@@ -142,7 +158,21 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             Object.keys(foodItemDetails).length > 0 && foodArray.length > 0 &&
                 <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
             }
+            {/* Error messages show up here using react-toastify. props are just settings on how the alert will appear */}
+            <ToastContainer
+                theme="colored"
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </section>
+        
     )
     
 }
