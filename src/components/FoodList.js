@@ -13,7 +13,9 @@ import { getDatabase, ref, push } from 'firebase/database';
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
     
 
-    const [ foodArray, setFoodArray ] = useState([]);
+    const [ commonFoodArray, setCommonFoodArray ] = useState([]);
+    const [ brandedFoodArray, setBrandedFoodArray] = useState([]);
+    const [ brandId, setBrandId ] = useState("");
     const [ searchTerm, setSearchTerm ] = useState('');
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
@@ -37,9 +39,17 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         }).then((res) => {
             if(res.data.common.length > 0 ){
                 const commonArray = res.data.common;
-                setFoodArray(filterByTagId(commonArray))
+                setCommonFoodArray(filterByTagId(commonArray))
             } else {
-                toast.error("Sorry no results found")
+                toast.error("Sorry no common food results found")
+            }
+
+            if (res.data.branded.length > 0) {
+                const brandedArray = res.data.branded;
+                //Can't filtered by tag_id since branded results dont seem to come with it.
+                setBrandedFoodArray(brandedArray)
+            } else {
+                toast.error("Sorry no common food results found")
             }
             
         }).catch((error) => {
@@ -96,6 +106,55 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         }
     }, [foodItemName])
 
+    // useEffect to get nutrient details from branded items
+    useEffect( () => {
+        if (brandId.length > 0){
+            axios({
+                method: "GET",
+                dataResponse: "json",
+                url: ` https://trackapi.nutritionix.com/v2/search/item`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-app-id": "081b5ced",
+                    "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+                },
+                params: {
+                    "nix_item_id": brandId
+                }
+            }).then((res) => {
+                // console.log(res.data)
+
+                const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
+
+                const nutritionObj = {}
+
+                const foodObj = res.data.foods[0]
+                if (Object.keys(foodObj).length !== 0) {
+                    for (let key in foodObj) {
+                        if (someArray.includes(key)) {
+                            // error handling for null value in foodObj
+                            if (foodObj[key] === null) {
+                                nutritionObj[key] = 'N/A';
+                            } else {
+                                nutritionObj[key] = foodObj[key]
+                            }
+                        }
+                    }
+                    const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
+                    nutritionObj.full_nutrients = renamedNutrients;
+
+                    setFoodItemDetails(nutritionObj);
+                } else {
+                    toast.error("Sorry, looks like there are no nutrient details")
+                }
+
+            }).catch((error) => {
+                toast.error("Sorry there was trouble getting nutrient details from the API")
+            })
+        }
+    }, [brandId])
+
+
       // handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -111,6 +170,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     const handleDetailClick = (foodName) => {
     setFoodItemName(foodName);
+    }
+
+    const handleBrandedDetailClick = (nixId) => {
+        setBrandId(nixId);
     }
 
      // handles uploading data to firebase
@@ -141,7 +204,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
               <input type='text' onChange={handleChange} value={userInput} />
             </form>
             {
-                foodArray.map((foodItem) => {
+                commonFoodArray.map((foodItem) => {
                     return (
                         <div key={foodItem.tag_id + foodItem.food_name}>
                             <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
@@ -153,9 +216,23 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
                 
             }
+            <h2>Branded food</h2>
+            {
+                brandedFoodArray.map((foodItem) => {
+                    return (
+                        <div key={foodItem.tag_id + foodItem.food_name}>
+                            <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
+                            <h2>{foodItem.food_name}</h2>
+                            <button onClick={() => handleBrandedDetailClick(foodItem.nix_item_id)}>Details</button>
+                        </div>
+                    )
+                })
+
+
+            }
             
             {
-            Object.keys(foodItemDetails).length > 0 && foodArray.length > 0 &&
+            Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
                 <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
             }
             {/* Error messages show up here using react-toastify. props are just settings on how the alert will appear */}
