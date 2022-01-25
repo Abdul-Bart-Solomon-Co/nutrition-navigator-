@@ -23,7 +23,9 @@ const NutrientsDetail = (props) => {
                     })
                 }
             </ul>
+            { props.handleCompare &&
             <button onClick={props.handleCompare}>Compare</button>
+            }
 
             { props.handleSave &&
             <button onClick={() => props.handleSave(props.food_name)}>Save</button>
