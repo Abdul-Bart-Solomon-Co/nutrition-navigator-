@@ -1,25 +1,13 @@
-import NutrientsDetail from "./NutrientsDetails";
 import { BarChart } from '../components/Chart.js';
 
 
 const Comparisons = (props) => {
 
 
-    console.log(props);
     return (
         <section className="comparisons">
-            {
-                props.comparisonsArray.map((individualFoodNutrients) => {
-                    return(
-                        <>
-                            <NutrientsDetail {...individualFoodNutrients} />
-
-                                <BarChart chartData={props.comparisonsArray} />
-                        
-                        </>
-                    )
-                    
-                })
+            { props.comparisonsArray.length > 0 &&
+                <BarChart chartData={props.comparisonsArray} />
             
         }
             

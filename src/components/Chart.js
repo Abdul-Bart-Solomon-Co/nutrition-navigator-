@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import { exchangeObject } from "../utils.js";
 
 import {
   Chart as ChartJS,
@@ -46,31 +47,61 @@ export const BarChart = ({ chartData }) => {
   },
 };
 
-    const labels = ['Calories', 'Dietary Fiber', 'Protein', 'Saturated Fat', 'Sodium', 'Sugars', 'Total Carbohydrates', 'Total Fat'];
+    // labels must be the same as key names in the incoming data
+    const labels = ['Calories (kcal)', 'Dietary Fiber (grams)', 'Protein (grams)', 'Saturated Fat (grams)', 'Sodium (mg)', 'Sugars (grams)', 'Total Carbohydrates (grams)', 'Total Fat (grams)'];
+
+    // colors we will be needing 
+    const colors = ['rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'rgb(53, 162, 235)']
+
+    // stack we will need
+    const stack = ['Stack 0', 'Stack 1', 'Stack 0']
+
+    // creating dynamic nutritions datasets array
+    const newData = chartData.map((item, index) => {
+      let newObj;
+      newObj = exchangeObject(item);
+
+      // we want an object returned that has a label property, data array, background color, and stack value
+      let dataObject = {
+        label: newObj.food_name,
+        data: labels.map((label) => newObj[label]),
+        backgroundColor: colors[index],
+        stack: stack[index]
+      }
+      return dataObject;
+    });
+
+  console.log(newData)
+
 
     const data = {
         labels,
-        datasets: [
-            {
-            label: 'Burgers',
-            data: labels.map(() => Math.floor(Math.random() * 50)),
-            backgroundColor: 'rgb(255, 99, 132)',
-            stack: 'Stack 0',
-            },
-            {
-            label: 'Fries',
-            data: labels.map(() => 40),
-            backgroundColor: 'rgb(75, 192, 192)',
-            stack: 'Stack 0',
-            },
-            {
-            label: 'Salad',
-            data: labels.map(() => 60),
-            backgroundColor: 'rgb(53, 162, 235)',
-            stack: 'Stack 1',
-            },
-        ],
+        datasets: newData,
 };
+
+  //   const mineralData = {
+  //       labels,
+  //       datasets: [        
+  //           {
+  //           label: newData[0].food_name,
+  //           data: labels.map((label) => newData[0][label]),
+  //           backgroundColor: 'rgb(255, 99, 132)',
+  //           stack: 'Stack 0',
+  //           },
+  //           {
+  //           label: newData[1].food_name,
+  //           data: labels.map((label) => newData[1][label]),
+  //           backgroundColor: 'rgb(75, 192, 192)',
+  //           stack: 'Stack 0',
+  //           },
+  //           {
+  //           label: newData[2].food_name,
+  //           data: labels.map((label) => newData[2][label]),
+  //           backgroundColor: 'rgb(53, 162, 235)',
+  //           stack: 'Stack 1',
+  //           }
+  //       ],
+  // };  
     return (
         <div>
            <Bar 
