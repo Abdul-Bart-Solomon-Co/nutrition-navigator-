@@ -124,24 +124,29 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
               <label htmlFor="searchInput">Enter a Food Item:</label>
               <input type='text' onChange={handleChange} value={userInput} />
             </form>
-            {
-                foodArray.map((foodItem) => {
-                    return (
-                        <div key={foodItem.tag_id + foodItem.food_name}>
-                            <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                            <h2>{foodItem.food_name}</h2>
-                            <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
-                        </div>
-                    )
-                })
-
+            <div className="foodResultsContainer wrapper">
+                <div>
+                {
+                    foodArray.map((foodItem) => {
+                        return (
+                            <div key={foodItem.tag_id + foodItem.food_name}>
+                                <div className="flexContainer">
+                                    <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
+                                    <h2>{foodItem.food_name}</h2>
+                                </div>
+                                <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
+                            </div>
+                        )
+                    })
+    
+                }
+                </div>
                 
-            }
-            
-            {
-            Object.keys(foodItemDetails).length > 0 && foodArray.length > 0 &&
-                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
-            }
+                {
+                Object.keys(foodItemDetails).length > 0 && foodArray.length > 0 &&
+                    <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
+                }
+            </div>
         </section>
     )
     

@@ -5,6 +5,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 
 
+
 import { useState, useEffect } from 'react';
 import Comparisons from './components/Comparisons';
 import { FoodList } from './components/FoodList';
@@ -104,7 +105,11 @@ function App() {
   return (
     <div>
       <header className='headerSection'>
-            <nav>
+            <nav className='wrapper'>
+              <div>
+
+                <h4>NutriNav</h4>
+              </div>
               <ul>
                 <li><Link to="/">Find Items</Link></li>
                 <li><Link to="/saved" >Saved Items</Link></li>
