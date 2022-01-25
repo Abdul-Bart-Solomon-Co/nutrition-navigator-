@@ -15,15 +15,15 @@ export const filterByTagId = (arrayToFilter) => {
 
 // this is an array of the attr_id that we need
 const attrObj = {
-    318: "vitamin A",
-    324: "vitamin D",
-    415: "vitamin B-6",
-    401: "vitamin C",
-    573: "vitamin E",
-    304: "Magnesium",
-    309: "Zinc",
-    303: "Iron",
-    320: "vitamin A"
+    318: "Vitamin A (IU)",
+    324: "Vitamin D (IU)",
+    415: "Vitamin B-6 (mg)",
+    401: "Vitamin C (mg)",
+    573: "Vitamin E (mg)",
+    304: "Magnesium (mg)",
+    309: "Zinc (mg)",
+    303: "Iron (mg)",
+    320: "Vitamin A (mcg)"
 }
 
 // This is an object of unit values that we need
@@ -85,5 +85,31 @@ export const exchangeObject = (comparisonObj) => {
         'Total Fat (grams)': comparisonObj.nf_total_fat
     }
 
-    return newComparisonObj
+    return newComparisonObj;
+}
+
+
+
+// First we need to turn array to an object
+
+// unfortunately we need to make a vitamins object
+export const vitaminsExchange = (comparisonObj) => {
+    const nutrientObjectFinal = {}
+    comparisonObj.full_nutrients.forEach((nutrientObject) => {
+        nutrientObjectFinal[nutrientObject['name']] = nutrientObject['value'];
+    })
+
+    const newComparisonObj = {
+        food_name: comparisonObj.food_name,
+        'Iron (mg)': nutrientObjectFinal['Iron (mg)'], 
+        'Magnesium (mg)': nutrientObjectFinal['Magnesium (mg)'], 
+        'Zinc (mg)': nutrientObjectFinal['Zinc (mg)'],
+        'Vitamin A (mcg)': nutrientObjectFinal['Vitamin A (mcg)'], 
+        'Vitamin C (mg)': nutrientObjectFinal['Vitamin C (mg)'], 
+        'Vitamin B-6 (mg)': nutrientObjectFinal['Vitamin B-6 (mg)'], 
+        'Vitamin D (IU)': nutrientObjectFinal['Vitamin D (IU)'],
+        'Vitamin E (mg)': nutrientObjectFinal['Vitamin E (mg)'],
+    }
+
+    return newComparisonObj;
 }
