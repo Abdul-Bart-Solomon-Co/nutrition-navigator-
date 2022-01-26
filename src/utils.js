@@ -79,6 +79,7 @@ export const makeNutritionObj = (apiRes) => {
         nutritionObj.full_nutrients = renamedNutrients;
         
     return nutritionObj;
+}
 
    
 

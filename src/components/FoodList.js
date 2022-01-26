@@ -85,7 +85,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             toast.error("Sorry there was trouble getting nutrient details from the API")
         })
         }
-    }, [foodItemName])
+    }, [foodItemName, setFoodItemDetails])
 
     // useEffect to get nutrient details from branded items
     useEffect( () => {
@@ -115,7 +115,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                 toast.error("Sorry there was trouble getting nutrient details from the API")
             })
         }
-    }, [brandId])
+    }, [brandId, setFoodItemDetails])
 
 
       // handles the form submission
