@@ -77,6 +77,22 @@ nav ul {
   position: relative;
 }
 
+.chart-notification {
+  position: absolute;
+  background-color: #350482;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  /* TODO: consider putting in div as numbers larger than 9 warp container */
+  /* positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -18px;
+  right: -20px;
+}
+
 .navLink::after {
   content: '';
   position: absolute;

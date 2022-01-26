@@ -27,6 +27,9 @@ const Comparisons = (props) => {
         let alteredComparisonsArray = arrayOfCharts.flat();
         props.setComparisonsArray(alteredComparisonsArray);
         // console.log(alteredComparisonsArray);
+
+        // handling the chartNumber on app.js
+        props.setChartNumber(Math.ceil(alteredComparisonsArray.length / 3));
     }
 
     return (

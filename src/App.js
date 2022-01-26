@@ -3,6 +3,8 @@ import { Route, Routes, Link } from "react-router-dom";
 import firebaseProject from './firebaseSetup.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -16,7 +18,7 @@ function App() {
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
 
   // keeps track of how many charts we have in the application
-  const [ chartNumber, setChartNumber ] = useState(1);
+  const [ chartNumber, setChartNumber ] = useState(0);
 
   // list of saved foods
   const [ savedFood, setSavedFood ] = useState([]);
@@ -103,10 +105,12 @@ function App() {
     setComparisonsArray([...comparisonsArray, foodItemDetails])
 
     // checks if array has enough charts to start a new one
-    if(comparisonsArray.length % 3 === 1 && comparisonsArray.length > 1) {
+    if(comparisonsArray.length % 3 === 1 && comparisonsArray.length > 1 || comparisonsArray.length === 0) {
       setChartNumber(chartNumber + 1);
+        toast.success(`You have added ${chartNumber === 0 ? 1 : chartNumber + 1} ${chartNumber + 1 > 1 ? 'charts' : 'chart'}`);
+
+      }
     }
-  }
 
 
 
@@ -121,7 +125,12 @@ function App() {
               <ul>
                 <li className='navLink'><Link to="/">Find Items</Link></li>
                 <li className='navLink'><Link to="/saved" >Saved Items</Link></li>
-                <li className='navLink'><Link to="/comparison">Comparisons</Link></li>
+                <li className='navLink'>
+                  { chartNumber > 0 && 
+                    <p className='chart-notification'>{chartNumber}</p>
+                  }
+                  <Link to="/comparison">Comparisons</Link>
+                  </li>
               </ul>
             </nav>
             
@@ -136,7 +145,7 @@ function App() {
 
               <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
-              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} setComparisonsArray={setComparisonsArray}/>}/>
+              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} setComparisonsArray={setComparisonsArray} setChartNumber={setChartNumber} />}/>
             </Routes>
         </div>
       </main>
@@ -144,6 +153,21 @@ function App() {
       <footer>
         <p> 2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon Serry </p>
       </footer>
+
+      {
+        chartNumber &&
+        <ToastContainer
+                  theme="colored"
+                  position="bottom-center"
+                  autoClose={2000}
+                  hideProgressBar
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  draggable
+                  pauseOnHover
+              />
+      }
     </div>
   );
 }
