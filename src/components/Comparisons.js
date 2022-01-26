@@ -33,7 +33,7 @@ const Comparisons = (props) => {
     }
 
     return (
-        <section className="comparisons">
+        <section className="comparisons wrapper">
             { props.comparisonsArray.length > 0 &&
                 arrayOfCharts.map((chartGroup, index) => {
                     return (
