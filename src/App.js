@@ -165,7 +165,7 @@ function App() {
       </footer>
 
       {
-        chartNumber &&
+        chartNumber ?
         <ToastContainer
                   theme="colored"
                   position="bottom-center"
@@ -177,6 +177,7 @@ function App() {
                   draggable
                   pauseOnHover
               />
+        : null
       }
     </div>
   );
