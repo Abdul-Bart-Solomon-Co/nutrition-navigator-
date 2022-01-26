@@ -136,7 +136,7 @@ function App() {
 
               <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
-              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
+              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} setComparisonsArray={setComparisonsArray}/>}/>
             </Routes>
         </div>
       </main>
