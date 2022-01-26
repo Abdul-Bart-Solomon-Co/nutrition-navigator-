@@ -129,11 +129,12 @@ form {
 .searchList {
   overflow-y: scroll;
   height: 655px;
-  width: 50%;
+  width: 70%;
   padding: 30px 30px 0 30px;
   background-color: #350482;
   border-radius: 10px;
   margin-right: 20px;
+  display: flex;
 }
 
 .searchList div {
@@ -145,15 +146,6 @@ form {
 .searchList h2 {
   padding-top: 20px;
 }
-
-
-/* .flexContainer {
-  display: flex;
-}
-
-.flexContainer h2 {
-  padding-top: 15px ;
-} */
 
 .searchFlexContainer {
   display: flex;
@@ -180,6 +172,10 @@ form {
 .listImg {
   width: 60px;
   height: 60px;
+}
+
+.commonFoodList {
+  margin-right: 20px;
 }
 
 /* nutrients detail styling */
