@@ -111,9 +111,9 @@ function App() {
                 <h4>NutriNav</h4>
               </div>
               <ul>
-                <li><Link to="/">Find Items</Link></li>
-                <li><Link to="/saved" >Saved Items</Link></li>
-                <li><Link to="/comparison">Comparisons</Link></li>
+                <li className='navLink'><Link to="/">Find Items</Link></li>
+                <li className='navLink'><Link to="/saved" >Saved Items</Link></li>
+                <li className='navLink'><Link to="/comparison">Comparisons</Link></li>
               </ul>
             </nav>
             
@@ -121,19 +121,21 @@ function App() {
     
       </header>
       <main>
-        <section>
-            
-        </section>
-       
+        <div className='mainBackground'>
+            <Routes>
+              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
+
+              <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
+
+              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
+            </Routes>
+        </div>
       </main>
 
-      <Routes>
-        <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
+      <footer>
+        <p> 2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon Serry </p>
+      </footer>
 
-        <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
-
-        <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
-      </Routes>
     </div>
   );
 }

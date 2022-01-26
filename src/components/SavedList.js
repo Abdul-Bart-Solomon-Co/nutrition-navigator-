@@ -14,7 +14,7 @@ export const SavedList = ({ foodArray }) => {
 
     console.log(foodArray)
     return (
-        <div>
+        <div className="savedList wrapper">
         {foodArray.length > 0 &&
         foodArray.map((item) => {
             return (

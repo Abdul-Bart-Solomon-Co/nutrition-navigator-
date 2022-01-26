@@ -2,11 +2,11 @@ const NutrientsDetail = (props) => {
     // const [ props.nf_calories, nf_dietary_fiber, nf_protein, nf_saturated_fat, nf_sugars, nf_total_carbohydrate, nf_total_fat, nf_sodium, full_nutrients, food_name, brand_name, photo ] = props;
     
     return(
-        <div>
+        <div className="nutrientsContainer">
             <ul>
-                <div className="flexContainer">
-                    <li> <img src={props.photo.thumb} alt={`This is a ${props.food_name}`}></img></li>
-                    <li><h2>{ props.food_name}</h2></li>
+                <div>
+                    <li><h2>{ props.food_name }</h2></li>
+                    <li> <img src={ props.photo.thumb } alt={`This is a ${props.food_name}`}></img></li>
                 </div>
                 <li>{ props.brand_name + ' Brand Name'}</li>
                 <li>{ props.nf_calories + ' Calories' }</li>

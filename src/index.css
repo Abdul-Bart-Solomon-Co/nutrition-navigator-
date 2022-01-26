@@ -17,6 +17,7 @@ html {
 
 body{
   font-family: 'Montserrat', sans-serif;
+  color: #350482;
 }
 
 h1,
@@ -40,7 +41,7 @@ h4 {
 li, a {
   text-decoration: none;
   list-style: none;
-  color: #000;
+  color: #350482;
 }
 
 .wrapper {
@@ -51,6 +52,13 @@ li, a {
 
 
 /* working in the header */
+header {
+  background-image: url(../assets/veggie.png);
+  height: 500px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
 /* nav styling */
 nav {
   display: flex;
@@ -64,6 +72,31 @@ nav ul {
   width: 40%;
 }
 
+.navLink {
+  /* display: inline-block; */
+  position: relative;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  /* transform: scaleX(0); */
+  height: 2px;
+  bottom: 0;
+  left: 5%;
+  transform-origin: bottom left;
+  transition: all 0.25s ease-out;
+  background-color: #b20061;
+  
+}
+
+.navLink:hover::after {
+  /* transform: scaleX(14); */
+  transform-origin: bottom left;
+  width: 90%;
+}
+
 /* h1 styling */
 h1 {
   text-align: center;
@@ -73,15 +106,75 @@ h1 {
 /* search bar styling  */
 form {
   text-align: center;
+  padding-top: 40px;
+}
+  
+  input[type=text] {
+    border: none;
+    padding: 30px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: white;
+    color: #350482;
+}
+
+/* main area */
+
+.mainBackground {
+  color: white
 }
 
 /* food list item styling */
-.flexContainer {
+.searchList {
+  overflow-y: scroll;
+  height: 655px;
+  width: 50%;
+  padding: 30px 30px 0 30px;
+  background-color: #350482;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.searchList div {
+  margin-top: 15px;
+  border-radius: 10px;
+  
+}
+
+.searchList h2 {
+  padding-top: 20px;
+}
+
+
+/* .flexContainer {
   display: flex;
 }
 
 .flexContainer h2 {
   padding-top: 15px ;
+} */
+
+.searchFlexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchFlexContainer h3 {
+  margin-right: 40px;
+  padding-top: 15px;
+}
+
+
+.searchFlexContainer img {
+  border-radius: 10px;
+}
+
+.searchFlexContainer button {
+  border-radius: 10px;
+  border: none;
+  height: 50px;
+  background-color: #ffe1f9;
 }
 
 .listImg {
@@ -93,4 +186,59 @@ form {
 
 .foodResultsContainer {
   display: flex;
+  padding-top: 40px;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  
+}
+
+.nutrientsContainer {
+  width: 50%;
+  background-color: #350482;
+  border-radius: 10px;
+  height: 655px;
+  padding: 30px 0;
+  overflow-y: scroll;
+}
+
+.nutrientsContainer li {
+  color: white;
+  padding-top: 20px;
+}
+
+.nutrientsContainer h2 {
+  text-transform: capitalize;
+  color: white;
+}
+
+.nutrientsContainer button {
+  border-radius: 10px;
+  border: none;
+  margin: 20px 10px 0 10px;
+  padding: 10px 15px;
+  background-color: #ffe1f9;
+
+}
+
+.nutrientsContainer img {
+  border-radius: 10px;
+}
+
+/* styling for saved items page */
+
+.savedList {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.savedList div {
+  width: 50%;
+}
+
+/* footer styling */
+footer {
+  text-align: center;
+  padding: 20px 0;
 }

@@ -121,20 +121,21 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         <section>
 
              <form action="#" onSubmit={handleSubmit}>
-              <label htmlFor="searchInput">Enter a Food Item:</label>
-              <input type='text' onChange={handleChange} value={userInput} />
+              <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
+              <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
             </form>
             <div className="foodResultsContainer wrapper">
-                <div>
+                <div className="searchList">
+                    <h2>Search List</h2>
                 {
                     foodArray.map((foodItem) => {
                         return (
                             <div key={foodItem.tag_id + foodItem.food_name}>
-                                <div className="flexContainer">
+                                <div className="searchFlexContainer">
                                     <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                                    <h2>{foodItem.food_name}</h2>
+                                    <h3>{foodItem.food_name}</h3>
+                                    <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
                                 </div>
-                                <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
                             </div>
                         )
                     })
