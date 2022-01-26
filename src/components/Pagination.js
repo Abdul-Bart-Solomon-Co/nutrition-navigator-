@@ -1,14 +1,23 @@
-// Pagination component fomrat taken from https://academind.com/tutorials/reactjs-pagination
-const Pagination = ({data, Component, title, pageLimit, dataLimit, handleClick}) => {
-    const [pages] = useState(Math.round(data.length/data.limit))
+import { useState } from 'react';
+// Pagination component format taken from https://academind.com/tutorials/reactjs-pagination
+// Must pass component props under the componentProps object and then descructure them out in the component
+
+const Pagination = (props) => {
+    const { data, RenderedComponent, title, dataLimit, componentProps } = props;
+    let pageLimit = props.pageLimit;
+    const [pages] = useState(Math.round(data.length/dataLimit))
     const [ currentPage, setCurrentPage ] =useState(1)
 
+    if (pages < pageLimit){
+        pageLimit = pages;
+    }
+
     const goToNextPage = () => {
-        setCurrentPage((page) => page + 1)
+        setCurrentPage(currentPage + 1)
     }
 
     const goToPreviousPage = () => {
-        setCurrentPage((page) => page - 1)
+        setCurrentPage(currentPage -1)
     }
 
     const changePage = (event) => {
@@ -17,20 +26,23 @@ const Pagination = ({data, Component, title, pageLimit, dataLimit, handleClick})
         setCurrentPage(pageNumber);
     }
 
+    // Cuts data into portion based off of current page and the data limit
     const paginateData = () => {
         const startIndex = currentPage * dataLimit - dataLimit;
         const endIndex = startIndex + dataLimit;
         return data.slice(startIndex, endIndex);
     }
 
+    //Gets page numbers to be displayed
     const getPageNumbers = () => {
         const firstPage = Math.floor((currentPage -1)/pageLimit) * pageLimit
         const pageNumberArray = [];
-        for (let i = firstPage; i < firstPage + pageLimit; i++){
+        for (let i = firstPage + 1; i <= firstPage + pageLimit ; i++){
             pageNumberArray.push(i);
         }
         return pageNumberArray
     }
+
 
     return(
         <div>
@@ -38,8 +50,11 @@ const Pagination = ({data, Component, title, pageLimit, dataLimit, handleClick})
 
             <div className="dataContainer">
                 {
-                    getPaginatedData().map((data, index) => {
-                        <Component key={index} handleClick={handleClick} {...data}/>
+                    paginateData().map((data, index) => {
+                        return(
+                            <RenderedComponent key={index} data={data} componentProps={componentProps} />
+                        )
+                        
                     })
                 }
             </div>
@@ -48,23 +63,29 @@ const Pagination = ({data, Component, title, pageLimit, dataLimit, handleClick})
                 <button 
                 onClick={goToPreviousPage}
                 className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+                disabled={currentPage === 1 ? true : false}
                 > &#60; 
                 </button>
 
                 {
                     getPageNumbers().map((number, index) => {
-                        <button
-                            key={index}
-                            onClick={changePage}
-                            className={`pageNumber ${currentPage === 1 ? "disabled" : ""}`}
-                        > &#60;
-                        </button>
+                        return (
+                            <button
+                                key={index}
+                                onClick={changePage}
+                                className={`pageNumber ${currentPage === number ? "active" : ""}`}
+                                disabled={currentPage === number ? true : false}
+                            > {number}
+                            </button>
+                        )
+                        
                     })
                 }
 
                 <button
                     onClick={goToNextPage}
                     className={`next ${currentPage === pages ? "disabled" : ""}`}
+                    disabled={currentPage === pages ? true : false}
                 > &#62;
                 </button>
 
