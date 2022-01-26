@@ -105,7 +105,7 @@ function App() {
     setComparisonsArray([...comparisonsArray, foodItemDetails])
 
     // checks if array has enough charts to start a new one
-    if(comparisonsArray.length % 3 === 1 && comparisonsArray.length > 1 || comparisonsArray.length === 0) {
+    if((comparisonsArray.length % 3 === 1 && comparisonsArray.length > 1) || (comparisonsArray.length === 0)) {
       setChartNumber(chartNumber + 1);
         toast.success(`You have added ${chartNumber === 0 ? 1 : chartNumber + 1} ${chartNumber + 1 > 1 ? 'charts' : 'chart'}`);
 
