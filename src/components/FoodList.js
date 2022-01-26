@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { filterByTagId, makeNutritionObj } from "../utils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagination from "./Pagination.js";
+import FoodListItem from "./FoodListItem.js";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
@@ -19,7 +21,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ searchTerm, setSearchTerm ] = useState('');
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
+    const [ foodTypeListed, setFoodTypeListed ] = useState("common");
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
+    const appId = "69faf9cb";
+    const apiKey = "90db89eddcef2e54eea4099c6ab38907";
 
       // Axios call for search/instant endpoint
     useEffect(() => {
@@ -30,8 +35,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             url: `https://trackapi.nutritionix.com/v2/search/instant`,
             headers: {
             "Content-Type": "application/json",
-            "x-app-id": "081b5ced",
-            "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+            "x-app-id": appId,
+            "x-app-key": apiKey
             },
             params: {
             "query": searchTerm
@@ -67,8 +72,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
             headers: {
             "Content-Type": "application/json",
-            "x-app-id": "081b5ced",
-            "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+            "x-app-id": appId,
+            "x-app-key": apiKey
             },
             data: {
             "query": foodItemName
@@ -96,8 +101,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                 url: ` https://trackapi.nutritionix.com/v2/search/item`,
                 headers: {
                     "Content-Type": "application/json",
-                    "x-app-id": "081b5ced",
-                    "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+                    "x-app-id": appId,
+                    "x-app-key": apiKey
                 },
                 params: {
                     "nix_item_id": brandId
@@ -162,6 +167,14 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
+    const handleCommonType = () => {
+        setFoodTypeListed("common");
+    }
+
+    const handleBrandedType = () => {
+        setFoodTypeListed("branded");
+    }
+
     return(
         <section>
 
@@ -173,7 +186,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
 
-                    <div className="commonFoodList">
+                    {/* <div className="commonFoodList">
                         <h2>Common Food</h2>
                         {
                             commonFoodArray.map((foodItem) => {
@@ -186,9 +199,62 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                                 )
                             })   
                         }
-                    </div>
+                    </div> */}
 
-                    <div className="brandedFoodList">
+                    {/* Buttons that toggle common and branded foot lists */}
+
+                    {commonFoodArray.length > 0 || brandedFoodArray.length > 0
+                    ?<div className="foodTypeButtonContainer">
+                        <button
+                            onClick={handleCommonType}
+                            disabled={
+                                foodTypeListed === "common"
+                                    ? true
+                                    : false
+                            }>Common Foods</button>
+
+                        <button
+                            onClick={handleBrandedType}
+                            disabled={
+                                foodTypeListed === "branded"
+                                    ? true
+                                    : false
+                            }>Branded Foods</button>
+                    </div>
+                    : null
+                    }
+                    
+                    
+
+                    {
+                    // Ternary changes which food list type is displayed depending on button selected
+                    commonFoodArray.length > 0 && foodTypeListed === "common"
+                        ? <Pagination
+                            data={commonFoodArray}
+                            RenderedComponent={FoodListItem}
+                            title="Common Food"
+                            pageLimit={5}
+                            dataLimit={5}
+                            componentProps={handleDetailClick}
+                        />
+                        : null
+                    }
+                    {
+                        // Ternary changes which food list type is displayed depending on button selected
+                        brandedFoodArray.length > 0 && foodTypeListed === "branded"
+                            ? <Pagination
+                                data={brandedFoodArray}
+                                RenderedComponent={FoodListItem}
+                                title="Branded Food"
+                                pageLimit={5}
+                                dataLimit={5}
+                                componentProps={handleDetailClick}
+                            />
+                            : null
+                    }
+                    
+
+                    {/* <div className="brandedFoodList">
                         <h2>Branded Food</h2>
                         {
                             brandedFoodArray.map((foodItem) => {
@@ -202,7 +268,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                             })
                         }
 
-                    </div>
+                    </div> */}
 
                 </div>
             {
