@@ -5,6 +5,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 
 
+
 import { useState, useEffect } from 'react';
 import Comparisons from './components/Comparisons';
 import { FoodList } from './components/FoodList';
@@ -112,11 +113,15 @@ function App() {
   return (
     <div>
       <header className='headerSection'>
-            <nav>
+            <nav className='wrapper'>
+              <div>
+
+                <h4>NutriNav</h4>
+              </div>
               <ul>
-                <li><Link to="/">Find Items</Link></li>
-                <li><Link to="/saved" >Saved Items</Link></li>
-                <li><Link to="/comparison">Comparisons</Link></li>
+                <li className='navLink'><Link to="/">Find Items</Link></li>
+                <li className='navLink'><Link to="/saved" >Saved Items</Link></li>
+                <li className='navLink'><Link to="/comparison">Comparisons</Link></li>
               </ul>
             </nav>
             
@@ -124,17 +129,21 @@ function App() {
     
       </header>
       <main>
-       
-        <Routes>
-          <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
 
-          <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
+        <div className='mainBackground'>
+            <Routes>
+              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
 
-          <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} chartNumber={chartNumber}/>}/>
-        </Routes>
+              <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
+              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
+            </Routes>
+        </div>
       </main>
 
+      <footer>
+        <p> 2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon Serry </p>
+      </footer>
     </div>
   );
 }

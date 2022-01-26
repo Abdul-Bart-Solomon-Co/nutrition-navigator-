@@ -163,9 +163,15 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         <section>
 
              <form action="#" onSubmit={handleSubmit}>
-              <label htmlFor="searchInput">Enter a Food Item:</label>
-              <input type='text' onChange={handleChange} value={userInput} />
+              <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
+              <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
             </form>
+
+            <div className="foodResultsContainer wrapper">
+                <div className="searchList">
+                    <h2>Search List</h2>
+                
+
             {
                 commonFoodArray.map((foodItem) => {
                     return (
