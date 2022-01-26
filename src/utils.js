@@ -58,6 +58,30 @@ export const filteredNutrients = (nutrientsArray) => {
 };
 
 
+export const makeNutritionObj = (apiRes) => {
+
+    const someArray = ["nf_calories", "nf_dietary_fiber", "nf_protein", "nf_saturated_fat", "nf_sugars", "nf_total_carbohydrate", "nf_total_fat", "nf_sodium", "full_nutrients", "food_name", "brand_name", "photo",]
+
+    const nutritionObj = {}
+
+    const foodObj = apiRes.data.foods[0]
+        for (let key in foodObj) {
+            if (someArray.includes(key)) {
+                // error handling for null value in foodObj
+                if (foodObj[key] === null) {
+                    nutritionObj[key] = 'N/A';
+                } else {
+                    nutritionObj[key] = foodObj[key]
+                }
+            }
+        }
+        const renamedNutrients = filteredNutrients(nutritionObj.full_nutrients)
+        nutritionObj.full_nutrients = renamedNutrients;
+        
+    return nutritionObj;
+
+   
+
 // const comparisonObj = { 
 // brand_name: "N/A",
 // food_name: "burger",
@@ -112,4 +136,5 @@ export const vitaminsExchange = (comparisonObj) => {
     }
 
     return newComparisonObj;
+
 }
