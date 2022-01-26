@@ -18,7 +18,7 @@ export const SavedList = ({ foodArray }) => {
         {foodArray.length > 0 &&
         foodArray.map((item) => {
             return (
-                <div key={item.key}>
+                <div className="savedFood" key={item.key}>
                     <NutrientsDetail {...item.foodDetails} handleRemove={() => handleRemove(item.key)}  />
                 </div>
 

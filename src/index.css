@@ -219,18 +219,47 @@ form {
 
 .nutrientsContainer img {
   border-radius: 10px;
+  width: 125px;
+  height: 125px;
 }
 
 /* styling for saved items page */
 
 .savedList {
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
 }
 
-.savedList div {
-  width: 50%;
+.savedFood {
+  width: 100%;
+}
+
+.savedFood .nutrientsContainer {
+overflow-y: hidden;
+margin-bottom: 30px;
+}
+.savedFood .nutrientsContainer ul{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.savedFood .nutrientsContainer li{
+ width: 550px;
+text-align: center;
+}
+
+.savedFood .nutrientsContainer button {
+  margin-left: 50%;
+}
+
+/* comparisons styling */
+
+.comparisons button {
+  border-radius: 10px;
+  border: none;
+  margin: 20px 10px 0 10px;
+  padding: 10px 15px;
+  background-color: #ffe1f9;
 }
 
 /* footer styling */
