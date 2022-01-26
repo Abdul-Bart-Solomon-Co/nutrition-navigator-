@@ -23,8 +23,8 @@ ChartJS.register(
 );
 
 
-export const BarChart = ({ chartData }) => {
-    
+export const BarChart = ({ chartData}) => {
+
     const [ toggle, setToggle ] = useState(false);
 
     const nutritionOptions = {
@@ -81,7 +81,7 @@ const vitaminOptions = {
     const colors = ['rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'rgb(53, 162, 235)']
 
     // stack we will need
-    const stack = ['Stack 0', 'Stack 1', 'Stack 0']
+    const stack = ['Stack 0', 'Stack 1', 'Stack 2']
 
     // creating dynamic nutritions datasets array
     const newNutritionData = chartData.map((item, index) => {
@@ -98,7 +98,6 @@ const vitaminOptions = {
       return dataObject;
     });
 
-  console.log(chartData)
   // creating a dynamic vitamins/minerals datasets array
   const newVitaminData = chartData.map((item, index) => {
     let newObj;

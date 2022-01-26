@@ -14,6 +14,9 @@ function App() {
   const [ foodItemDetails, setFoodItemDetails ] = useState({});
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
 
+  // keeps track of how many charts we have in the application
+  const [ chartNumber, setChartNumber ] = useState(1);
+
   // list of saved foods
   const [ savedFood, setSavedFood ] = useState([]);
 
@@ -97,6 +100,11 @@ function App() {
 
   const handleCompare = () => {
     setComparisonsArray([...comparisonsArray, foodItemDetails])
+
+    // checks if array has enough charts to start a new one
+    if(comparisonsArray.length % 3 === 1 && comparisonsArray.length > 1) {
+      setChartNumber(chartNumber + 1);
+    }
   }
 
 
@@ -122,7 +130,7 @@ function App() {
 
           <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
-          <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} />}/>
+          <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} chartNumber={chartNumber}/>}/>
         </Routes>
 
       </main>
