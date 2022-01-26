@@ -24,6 +24,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     // state to disable button if clicked once
     const [ disabled, setDisabled ] = useState(false);
 
+
       // Axios call for search/instant endpoint
     useEffect(() => {
         if(searchTerm.length > 0) {

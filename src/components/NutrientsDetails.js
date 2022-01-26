@@ -1,6 +1,21 @@
+import { useState } from 'react';
+
 const NutrientsDetail = (props) => {
+
+    // state to check how many items you can click to compare
+    const [ clicks, setClicks ] = useState(0);
+    const [ charts, setCharts ] = useState(1);
     
 
+    const changeClicks = () => {
+        if (clicks === 3) {
+            setCharts(charts + 1);
+            setClicks(0);
+        } else {
+            setClicks(clicks + 1);
+
+        }
+    }
     return(
         <div className="nutrientsContainer">
             <ul>
@@ -27,7 +42,7 @@ const NutrientsDetail = (props) => {
             </ul>
             { props.handleCompare &&
             <button
-            onClick={() => [props.handleCompare(), props.setDisabledButton()]}
+            onClick={() => [props.handleCompare(), props.setDisabledButton(), changeClicks()]}
             disabled={props.renderValue ? true : false}
             >Compare</button>
             }
@@ -39,6 +54,9 @@ const NutrientsDetail = (props) => {
             {props.handleRemove &&
             <button onClick={props.handleRemove}>Remove</button>
             }
+
+            <p>Number of charts: {charts}</p>
+            <p>items in current chart: {clicks}</p>
         </div>
     )
 }
