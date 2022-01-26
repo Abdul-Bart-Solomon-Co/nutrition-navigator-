@@ -23,6 +23,7 @@ function App() {
   // list of saved foods
   const [ savedFood, setSavedFood ] = useState([]);
 
+
   // brings up branded/common products
   // Axios call for search/instant endpoint
   // useEffect(() => {
@@ -120,7 +121,7 @@ function App() {
 
       }
     }
-
+    
 
 
 
@@ -151,7 +152,7 @@ function App() {
 
         <div className='mainBackground'>
             <Routes>
-              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
+              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>} />
 
               <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
 
