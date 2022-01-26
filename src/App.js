@@ -110,10 +110,10 @@ function App() {
     if((comparisonsArray.length % 3 === 0 && comparisonsArray.length > 0) || (comparisonsArray.length === 0)) {
       setChartNumber(chartNumber + 1);
 
-        const clearWaitingQueue = () => {
-          // Easy, right 😎
-          toast.clearWaitingQueue();
-        }
+        // const clearWaitingQueue = () => {
+        //   // Easy, right 😎
+        //   toast.clearWaitingQueue();
+        // }
 
         const currentChartNumber = chartNumber + 1;
         toast.success(`You have ${currentChartNumber} ${currentChartNumber > 1 ? 'charts' : 'chart'} stored in your comparisons`);
