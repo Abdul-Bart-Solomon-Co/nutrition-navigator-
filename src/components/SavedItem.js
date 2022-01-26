@@ -1,6 +1,5 @@
 import NutrientsDetail from "./NutrientsDetails";
 const SavedItem = (props) => {
-    console.log(props.componentProps)
     const handleRemove = props.componentProps;
     const {key, foodDetails } = props.data;
     return (
