@@ -40,16 +40,16 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             if(res.data.common.length > 0 ){
                 const commonArray = res.data.common;
                 setCommonFoodArray(filterByTagId(commonArray))
-            } else {
-                toast.error("Sorry no common food results found")
-            }
+            } 
 
             if (res.data.branded.length > 0) {
                 const brandedArray = res.data.branded;
                 //Can't filtered by tag_id since branded results dont seem to come with it.
                 setBrandedFoodArray(brandedArray)
-            } else {
-                toast.error("Sorry no common food results found")
+            } 
+
+            if (res.data.common.length === 0 && res.data.branded.length === 0){
+                toast.error("Sorry no food results found")
             }
             
         }).catch((error) => {
