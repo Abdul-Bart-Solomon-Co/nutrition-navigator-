@@ -17,15 +17,27 @@ const Comparisons = (props) => {
 
     arrayOfCharts = (splitArrayIntoChunksOfLen(props.comparisonsArray, 3));
 
-    console.log(arrayOfCharts);
+    // console.log(arrayOfCharts);
 
+    // will mutate the top comparisons array by removing certain indexes of data, bringing back a new altered array and rerendering all charts
+    const handleMutateChartsArray = (index) => {
+        arrayOfCharts.splice(index, 1);
+
+
+        let alteredComparisonsArray = arrayOfCharts.flat();
+        props.setComparisonsArray(alteredComparisonsArray);
+        // console.log(alteredComparisonsArray);
+
+        // handling the chartNumber on app.js
+        props.setChartNumber(Math.ceil(alteredComparisonsArray.length / 3));
+    }
 
     return (
         <section className="comparisons">
             { props.comparisonsArray.length > 0 &&
-                arrayOfCharts.map((chartGroup) => {
+                arrayOfCharts.map((chartGroup, index) => {
                     return (
-                        <BarChart chartData={chartGroup}/>
+                        <BarChart chartData={chartGroup} index={index} handleMutateChartsArray={handleMutateChartsArray} />
 
                     )
                 })
