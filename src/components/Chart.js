@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 
-export const BarChart = ({ chartData}) => {
+export const BarChart = ({ chartData, index, handleMutateChartsArray }) => {
 
     const [ toggle, setToggle ] = useState(false);
 
@@ -123,9 +123,10 @@ const vitaminOptions = {
         datasets: newVitaminData,
     };
 
-    const handleClick = () => {
-      setToggle(!toggle);
+    const handleClick = (boolean) => {
+      setToggle(boolean);
     }
+
 
   //   const mineralData = {
   //       labels,
@@ -152,8 +153,9 @@ const vitaminOptions = {
   // };  
     return (
       <div>
-        <button onClick={handleClick}>Nutrition Data</button>
-        <button onClick={handleClick}>Vitamin Data</button>
+        <button onClick={() => handleClick(false)}>Nutrition Data</button>
+        <button onClick={() => handleClick(true)}>Vitamin Data</button>
+        <button onClick={() => handleMutateChartsArray(index)}>Remove</button>
         {
           !toggle ?
           <>

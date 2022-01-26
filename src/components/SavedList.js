@@ -18,11 +18,19 @@ export const SavedList = ({ foodArray }) => {
     return (
         <div className="savedList wrapper">
         {foodArray.length > 0 &&
+
         // foodArray.map((item) => {
         //     return (
         //         <div key={item.key}>
         //             <NutrientsDetail {...item.foodDetails} handleRemove={() => handleRemove(item.key)}  />
         //         </div>
+
+//         foodArray.map((item) => {
+//             return (
+//                 <div className="savedFood" key={item.key}>
+//                     <NutrientsDetail {...item.foodDetails} handleRemove={() => handleRemove(item.key)}  />
+//                 </div>
+
 
         //     )
         // })

@@ -77,6 +77,22 @@ nav ul {
   position: relative;
 }
 
+.chart-notification {
+  position: absolute;
+  background-color: #350482;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  /* TODO: consider putting in div as numbers larger than 9 warp container */
+  /* positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -18px;
+  right: -20px;
+}
+
 .navLink::after {
   content: '';
   position: absolute;
@@ -129,11 +145,12 @@ form {
 .searchList {
   overflow-y: scroll;
   height: 655px;
-  width: 50%;
+  width: 70%;
   padding: 30px 30px 0 30px;
   background-color: #350482;
   border-radius: 10px;
   margin-right: 20px;
+  display: flex;
 }
 
 .searchList div {
@@ -145,15 +162,6 @@ form {
 .searchList h2 {
   padding-top: 20px;
 }
-
-
-/* .flexContainer {
-  display: flex;
-}
-
-.flexContainer h2 {
-  padding-top: 15px ;
-} */
 
 .searchFlexContainer {
   display: flex;
@@ -180,6 +188,10 @@ form {
 .listImg {
   width: 60px;
   height: 60px;
+}
+
+.commonFoodList {
+  margin-right: 20px;
 }
 
 /* nutrients detail styling */
@@ -223,18 +235,47 @@ form {
 
 .nutrientsContainer img {
   border-radius: 10px;
+  width: 125px;
+  height: 125px;
 }
 
 /* styling for saved items page */
 
 .savedList {
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
 }
 
-.savedList div {
-  width: 50%;
+.savedFood {
+  width: 100%;
+}
+
+.savedFood .nutrientsContainer {
+overflow-y: hidden;
+margin-bottom: 30px;
+}
+.savedFood .nutrientsContainer ul{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.savedFood .nutrientsContainer li{
+ width: 550px;
+text-align: center;
+}
+
+.savedFood .nutrientsContainer button {
+  margin-left: 50%;
+}
+
+/* comparisons styling */
+
+.comparisons button {
+  border-radius: 10px;
+  border: none;
+  margin: 20px 10px 0 10px;
+  padding: 10px 15px;
+  background-color: #ffe1f9;
 }
 
 /* footer styling */

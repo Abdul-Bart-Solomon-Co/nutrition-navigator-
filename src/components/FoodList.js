@@ -170,37 +170,39 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
-                    <h2>Search List</h2>
-                
 
-            {
-                commonFoodArray.map((foodItem) => {
-                    return (
-                        <div key={foodItem.tag_id + foodItem.food_name}>
-                            <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                            <h2>{foodItem.food_name}</h2>
-                            <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
-                        </div>
-                    )
-                })
+                    <div className="commonFoodList">
+                        <h2>Common Food</h2>
+                        {
+                            commonFoodArray.map((foodItem) => {
+                                return (
+                                    <div className="searchFlexContainer" key={foodItem.tag_id + foodItem.food_name}>
+                                        <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
+                                        <p>{foodItem.food_name}</p>
+                                        <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
+                                    </div>
+                                )
+                            })   
+                        }
+                    </div>
 
-                
-            }
-            <h2>Branded food</h2>
-            {
-                brandedFoodArray.map((foodItem) => {
-                    return (
-                        <div key={foodItem.tag_id + foodItem.food_name}>
-                            <img src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                            <h2>{foodItem.food_name}</h2>
-                            <button onClick={() => handleBrandedDetailClick(foodItem.nix_item_id)}>Details</button>
-                        </div>
-                    )
-                })
+                    <div className="brandedFoodList">
+                        <h2>Branded Food</h2>
+                        {
+                            brandedFoodArray.map((foodItem) => {
+                                return (
+                                    <div className="searchFlexContainer" key={foodItem.tag_id + foodItem.food_name}>
+                                        <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
+                                        <p>{foodItem.food_name}</p>
+                                        <button onClick={() => handleBrandedDetailClick(foodItem.nix_item_id)}>Details</button>
+                                    </div>
+                                )
+                            })
+                        }
 
+                    </div>
 
-            }
-            </div>
+                </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
                 <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
