@@ -55,7 +55,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         }).catch((error) => {
             toast.error("Sorry there was a problem getting data from the API")
         })
-     }
+     } 
 
     }, [searchTerm]);
 
@@ -121,7 +121,9 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
       // handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        if (userInput === ""){
+            toast.warn("Please enter a food name");
+        }
         setSearchTerm(userInput);
         setUserInput('');
     }
