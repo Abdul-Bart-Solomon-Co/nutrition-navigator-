@@ -126,7 +126,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         setUserInput('');
     }
 
-    // handles setting state based on user input
+    // handles setting state based npm start
+    // on user input
     const handleChange = (event) => {
         setUserInput(event.target.value);
     }
@@ -199,11 +200,13 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
 
             }
-            
+            </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
                 <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
             }
+
+            </div>
             {/* Error messages show up here using react-toastify. props are just settings on how the alert will appear */}
             <ToastContainer
                 theme="colored"
