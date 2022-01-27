@@ -5,9 +5,8 @@ import { useState } from 'react';
 const Pagination = (props) => {
     const { data, RenderedComponent, title, dataLimit, componentProps } = props;
     let pageLimit = props.pageLimit;
-    const [pages] = useState(Math.round(data.length/dataLimit))
+    const pages = Math.round(data.length/dataLimit)
     const [ currentPage, setCurrentPage ] =useState(1)
-
     if (pages < pageLimit){
         pageLimit = pages;
     }
@@ -42,7 +41,6 @@ const Pagination = (props) => {
         }
         return pageNumberArray
     }
-
 
     return(
         <div>
