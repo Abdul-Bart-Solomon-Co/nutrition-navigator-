@@ -66,10 +66,16 @@ nav {
   padding: 25px 0;
 }
 
-nav ul {
+.nav-ul {
   display: flex;
   justify-content: space-between;
-  width: 40%;
+  gap: 2.65em;
+  /* width: 40%; */
+}
+
+/* mobile button */
+.hamburger-btn-container {
+  display: none;
 }
 
 .navLink {
@@ -77,20 +83,24 @@ nav ul {
   position: relative;
 }
 
-.chart-notification {
-  position: absolute;
-  background-color: #350482;
-  color: white;
+
+.chart-notification-container {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  padding: 3px 10px;
-  font-size: 0.8rem;
-  /* TODO: consider putting in div as numbers larger than 9 warp container */
-  /* positioning */
+  padding: 0.2em;
+  position: absolute;
+  top: -20px;
+  left: -24px;
+  background-color: #350482;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: -18px;
-  right: -20px;
+}
+
+.chart-notification {
+  color: white;
+  font-size: 0.8rem;
 }
 
 .navLink::after {
@@ -304,7 +314,7 @@ button {
   text-align: center;
   margin: 0 auto;
   padding-bottom: 100px;
-  align-items: start;
+  align-items: flex-start;
   
 }
 
@@ -406,4 +416,70 @@ text-align: center;
 footer {
   text-align: center;
   padding: 20px 0;
+}
+
+/* Welcome to Media Query Land! */
+/* Tread carefully yu gi boy */
+
+@media (max-width: 640px) {
+  /* mobile menu styling begins */
+  .nav-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2.65em;
+  /* width: 40%; */
+
+  /* positioning on mobile*/
+  overflow-y: scroll;
+  position: fixed;
+  background-color: #ffe1f9;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  max-width: 356px;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  z-index: 5;
+
+  transition: height 0.2s ease-in;
+
+  /* positioning flex children */
+  align-items: center;
+}
+
+.nav-ul.showMenu {
+  height: 100%;
+  width: 100%;
+}
+
+.nav-ul li:first-child {
+  margin-top: 7rem;
+}
+
+.navBar {
+  position: relative;
+}
+
+.hamburger-btn-container {
+  display: block;
+  position: fixed;
+  right: 1em;
+  top: 1.2em;
+  z-index: 10;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.nav-ul * {
+  color: #b20061;
+}
+
+.chart-notification {
+  color: #ffe1f9;
+}
+
+  
 }
