@@ -181,7 +181,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     const handleBrandedType = () => {
         setFoodTypeListed("branded");
-
+    }
     // sets disabled class
     const setDisabledButton = () => {
         setDisabled(true);
