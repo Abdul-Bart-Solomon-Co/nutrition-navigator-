@@ -26,7 +26,6 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ foodItemName, setFoodItemName ] = useState("");
     const [ foodTypeListed, setFoodTypeListed ] = useState("common");
     const [ queryLoading, setQueryLoading ] = useState(false);
-    const [ detailLoading, setDetailLoading ] = useState(false);
 
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
     // const appId = "69faf9cb";
@@ -225,7 +224,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                     queryLoading 
                         ?
                         <div className="loader">
-                            <Oval  color="#b20061" height={80} width={80} />
+                            <Oval color="#b20061" height={80} width={80} />
                         </div>
                         : <>
                                 {/* Buttons that toggle common and branded foot lists */}
