@@ -155,15 +155,21 @@ input[type=text] {
 .modalButton {
   border-radius: 50%;
   text-align: center;
-  background-color: #350482;
-  color: white;
+  background-color: white;
+  color: #350482;
   font-size: 1.5rem;
-  border: none;
+  border: 3px solid #350482;
   width: 50px;
   height: 50px;
   padding-top: 5px;
   margin-left: 40px;
   
+}
+
+.modalButton:hover,
+.modalButton:focus {
+  box-shadow: inset 0 0 0 2em #350482;
+  color: white;
 }
 
 
@@ -185,7 +191,6 @@ input[type=text] {
   background-color: #350482;
   color: white;
   width: 50%;
-  height: 500px;
   position: relative;
   margin: 0 auto;
   border-radius: 10px;
