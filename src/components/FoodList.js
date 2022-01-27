@@ -27,6 +27,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const appId = "69faf9cb";
     const apiKey = "90db89eddcef2e54eea4099c6ab38907";
 
+    // state to disable button if clicked once
+    const [ disabled, setDisabled ] = useState(false);
+
+
       // Axios call for search/instant endpoint
     useEffect(() => {
         if(searchTerm.length > 0) {
@@ -141,11 +145,13 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     }
 
     const handleDetailClick = (foodName) => {
-    setFoodItemName(foodName);
+        setFoodItemName(foodName);
+        setDisabled(false);
     }
 
     const handleBrandedDetailClick = (nixId) => {
         setBrandId(nixId);
+        setDisabled(false);
     }
 
      // handles uploading data to firebase
@@ -168,12 +174,18 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
+
     const handleCommonType = () => {
         setFoodTypeListed("common");
     }
 
     const handleBrandedType = () => {
         setFoodTypeListed("branded");
+
+    // sets disabled class
+    const setDisabledButton = () => {
+        setDisabled(true);
+
     }
 
     return(
@@ -274,7 +286,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                 </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
-                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
+                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave} renderValue={disabled} setDisabledButton={setDisabledButton} />
             }
 
             </div>
