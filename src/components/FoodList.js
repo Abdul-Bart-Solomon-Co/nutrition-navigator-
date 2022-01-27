@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Pagination from "./Pagination.js";
 import FoodListItem from "./FoodListItem.js";
 import BrandedFoodListItem from "./BrandedFoodListItem";
+import { Oval } from "react-loader-spinner";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
@@ -24,9 +25,13 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
     const [ foodTypeListed, setFoodTypeListed ] = useState("common");
+    const [ queryLoading, setQueryLoading ] = useState(false);
+
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
-    const appId = "69faf9cb";
-    const apiKey = "90db89eddcef2e54eea4099c6ab38907";
+    // const appId = "69faf9cb";
+    // const apiKey = "90db89eddcef2e54eea4099c6ab38907";
+    const appId = "081b5ced";
+    const apiKey = "424576e2352c2f4a8443cce73c99e5d7";
 
     // state to disable button if clicked once
     const [ disabled, setDisabled ] = useState(false);
@@ -50,6 +55,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             "query": searchTerm
             }
         }).then((res) => {
+            setQueryLoading(false);
             if(res.data.common.length > 0 ){
                 const commonArray = res.data.common;
                 setCommonFoodArray(filterByTagId(commonArray))
@@ -136,6 +142,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         event.preventDefault();
         if (userInput === ""){
             toast.warn("Please enter a food name");
+        } else {
+            setQueryLoading(true);
         }
         setSearchTerm(userInput);
         setUserInput('');
@@ -211,91 +219,71 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
-
-                    {/* <div className="commonFoodList">
-                        <h2>Common Food</h2>
-                        {
-                            commonFoodArray.map((foodItem) => {
-                                return (
-                                    <div className="searchFlexContainer" key={foodItem.tag_id + foodItem.food_name}>
-                                        <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                                        <p>{foodItem.food_name}</p>
-                                        <button onClick={() => handleDetailClick(foodItem.food_name)}>Details</button>
-                                    </div>
-                                )
-                            })   
-                        }
-                    </div> */}
-
-                    {/* Buttons that toggle common and branded foot lists */}
-
-                    {commonFoodArray.length > 0 || brandedFoodArray.length > 0
-                    ?<div className="foodTypeButtonContainer">
-                        <button
-                            onClick={handleCommonType}
-                            disabled={
-                                foodTypeListed === "common"
-                                    ? true
-                                    : false
-                            }>Common Foods</button>
-
-                        <button
-                            onClick={handleBrandedType}
-                            disabled={
-                                foodTypeListed === "branded"
-                                    ? true
-                                    : false
-                            }>Branded Foods</button>
-                    </div>
-                    : null
-                    }
-                    
-                    
-
                     {
-                    // Ternary changes which food list type is displayed depending on button selected
-                    commonFoodArray.length > 0 && foodTypeListed === "common"
-                        ? <Pagination
-                            data={commonFoodArray}
-                            RenderedComponent={FoodListItem}
-                            title="Common Food"
-                            pageLimit={5}
-                            dataLimit={5}
-                            componentProps={handleDetailClick}
-                        />
-                        : null
-                    }
-                    {
-                        // Ternary changes which food list type is displayed depending on button selected
-                        brandedFoodArray.length > 0 && foodTypeListed === "branded"
-                            ? <Pagination
-                                data={brandedFoodArray}
-                                RenderedComponent={BrandedFoodListItem}
-                                title="Branded Food"
-                                pageLimit={5}
-                                dataLimit={5}
-                                componentProps={handleBrandedDetailClick}
-                            />
-                            : null
-                    }
-                    
+                        //Shows either loader or the data depending on state
+                    queryLoading 
+                        ?
+                        <div className="loader">
+                            <Oval color="#b20061" height={80} width={80} />
+                        </div>
+                        : <>
+                                {/* Buttons that toggle common and branded foot lists */}
 
-                    {/* <div className="brandedFoodList">
-                        <h2>Branded Food</h2>
-                        {
-                            brandedFoodArray.map((foodItem) => {
-                                return (
-                                    <div className="searchFlexContainer" key={foodItem.tag_id + foodItem.food_name}>
-                                        <img className="listImg" src={foodItem.photo.thumb} alt={`This is ${foodItem.food_name}`} />
-                                        <p>{foodItem.food_name}</p>
-                                        <button onClick={() => handleBrandedDetailClick(foodItem.nix_item_id)}>Details</button>
+                                {commonFoodArray.length > 0 || brandedFoodArray.length > 0
+                                    ? <div className="foodTypeButtonContainer">
+                                        <button
+                                            onClick={handleCommonType}
+                                            disabled={
+                                                foodTypeListed === "common"
+                                                    ? true
+                                                    : false
+                                            }>Common Foods</button>
+
+                                        <button
+                                            onClick={handleBrandedType}
+                                            disabled={
+                                                foodTypeListed === "branded"
+                                                    ? true
+                                                    : false
+                                            }>Branded Foods</button>
                                     </div>
-                                )
-                            })
-                        }
+                                    : null
+                                }
 
-                    </div> */}
 
+
+                                {
+                                    // Ternary changes which food list type is displayed depending on button selected
+                                    commonFoodArray.length > 0 && foodTypeListed === "common"
+                                        ? <Pagination
+                                            data={commonFoodArray}
+                                            RenderedComponent={FoodListItem}
+                                            title="Common Food"
+                                            pageLimit={5}
+                                            dataLimit={5}
+                                            componentProps={handleDetailClick}
+                                        />
+                                        : null
+                                }
+                                {
+                                    // Ternary changes which food list type is displayed depending on button selected
+                                    brandedFoodArray.length > 0 && foodTypeListed === "branded"
+                                        ? <Pagination
+                                            data={brandedFoodArray}
+                                            RenderedComponent={BrandedFoodListItem}
+                                            title="Branded Food"
+                                            pageLimit={5}
+                                            dataLimit={5}
+                                            componentProps={handleBrandedDetailClick}
+                                        />
+                                        : null
+                                }
+                          </>
+                    }
+
+                    
+                    
+                    {/* savedList ends here */}
                 </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&

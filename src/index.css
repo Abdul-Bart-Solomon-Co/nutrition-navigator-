@@ -237,6 +237,15 @@ button {
   transform: translateY(-0.1em);
   color: #b20061;
 }
+
+.searchList button:hover:disabled,
+.searchList button:focus:disabled,
+.pagination button:hover:disabled, 
+.pagination button:focus:disabled {
+  box-shadow: none;
+  transform: none;
+  color: #350482;
+}
 .searchList div {
   margin-top: 15px;
   border-radius: 10px;
@@ -250,6 +259,7 @@ button {
 .searchFlexContainer {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .searchFlexContainer h3 {
@@ -262,11 +272,22 @@ button {
   border-radius: 10px;
 }
 
+.searchFlexContainer p {
+  margin: 0 5px;
+  font-size: clamp(0.5rem, 0.7rem + 1vw, 1rem);
+}
+
 .searchFlexContainer button {
   border-radius: 10px;
   border: none;
   height: 50px;
   background-color: #ffe1f9;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2em;
 }
 
 .listImg {
@@ -278,13 +299,24 @@ button {
   margin-right: 20px;
 } */
 
+
+.foodTypeButtonContainer {
+  display:flex;
+  justify-content: center;
+}
 .foodTypeButtonContainer button {
   border-radius: 10px;
   border: none;
-  height: 50px;
+  min-height: 50px;
   background-color: #ffe1f9;
   margin: 0 10px;
-  padding: 0 20px;
+  padding: 5px 20px;
+  font-size: clamp(0.6rem, 0.8rem + 1vw, 1rem);
+}
+
+.foodTypeButtonContainer button:disabled,
+.pagination button:disabled {
+  background-color:rgba(255, 225, 249,0.5);
 }
 
 .pagination {
@@ -297,9 +329,9 @@ button {
   border-radius: 10px;
   border: none;
   background-color: #ffe1f9;
-  padding: 10px 20px;
-  margin: 0 10px 20px 10px;
-  height: 50px;
+  padding: 10px 5%;
+  margin: 0 1% 20px 1%;
+  font-size: 1rem;  
 }
 
 .pagination .prev, .pagination .next {
@@ -315,6 +347,7 @@ button {
   margin: 0 auto;
   padding-bottom: 100px;
   align-items: flex-start;
+  justify-content: center;
   
 }
 
@@ -481,5 +514,16 @@ footer {
   color: #ffe1f9;
 }
 
-  
+
+/* Search list mobile stylings */
+  .foodResultsContainer {
+    flex-direction: column-reverse;
+  }
+
+  .searchList,
+  .nutrientsContainer{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
 }
