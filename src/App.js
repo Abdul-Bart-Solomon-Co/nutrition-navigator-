@@ -5,6 +5,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 
 
@@ -22,6 +23,9 @@ function App() {
 
   // list of saved foods
   const [ savedFood, setSavedFood ] = useState([]);
+
+  // hamburger menu open/closed state
+  const [ navOpen, setNavOpen ] = useState(false);
 
   // brings up branded/common products
   // Axios call for search/instant endpoint
@@ -121,64 +125,114 @@ function App() {
       }
     }
 
+    // handles toggling hamburger menu
+    const handleToggle = () => {
+      setNavOpen(prev => !prev);
+    }
+
+    // nav links set menu to closed
+    const closeMenu = () => {
+      setNavOpen(false)
+    }
+
 
 
 
   return (
     <div>
-      <header className='headerSection'>
-            <nav className='wrapper'>
-              <div>
+      <header className="headerSection">
+        <nav className="wrapper navBar">
+          <div>
+            <h4>NutriNav</h4>
+          </div>
+          <button className="hamburger-btn-container" onClick={handleToggle}>
+            { navOpen ? (
+              <GiHamburgerMenu style={{ color: "#b20061", fontSize: "1.2rem", transition: "color 0.1s ease-in-out" }} />
+            ) : (
+              <GiHamburgerMenu style={{ color: "#350482", fontSize: "1.2rem", transition: "color 0.1s ease-in-out" }}/>
+            )
 
-                <h4>NutriNav</h4>
-              </div>
-              <ul>
-                <li className='navLink'><Link to="/">Find Items</Link></li>
-                <li className='navLink'><Link to="/saved" >Saved Items</Link></li>
-                <li className='navLink'>
-                  { chartNumber > 0 && 
-                    <p className='chart-notification'>{chartNumber}</p>
-                  }
-                  <Link to="/comparison">Comparisons</Link>
-                  </li>
-              </ul>
-            </nav>
-            
-            <h1>Nutrition Navigator</h1>
-    
+            }
+          </button>
+          <ul className={`nav-ul ${navOpen ? " showMenu" : ""}`}>
+            <li className="navLink">
+              <Link to="/" onClick={() => closeMenu()}>
+                Find Items
+              </Link>
+            </li>
+            <li className="navLink">
+              <Link to="/saved" onClick={() => closeMenu()}>
+                Saved Items
+              </Link>
+            </li>
+            <li className="navLink">
+              {chartNumber > 0 && (
+                <p className="chart-notification">{chartNumber}</p>
+              )}
+              <Link to="/comparison" onClick={() => closeMenu()}>
+                Comparisons
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <h1>Nutrition Navigator</h1>
       </header>
       <main>
+        <div className="mainBackground">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <FoodList
+                  handleCompare={handleCompare}
+                  savedFood={savedFood}
+                  foodItemDetails={foodItemDetails}
+                  setFoodItemDetails={setFoodItemDetails}
+                />
+              }
+            />
 
-        <div className='mainBackground'>
-            <Routes>
-              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>}/>
+            <Route
+              path="/saved"
+              element={<SavedList foodArray={savedFood} />}
+            />
 
-              <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
-
-              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} setComparisonsArray={setComparisonsArray} setChartNumber={setChartNumber} />}/>
-            </Routes>
+            <Route
+              path="/comparison"
+              element={
+                <Comparisons
+                  comparisonsArray={comparisonsArray}
+                  setComparisonsArray={setComparisonsArray}
+                  setChartNumber={setChartNumber}
+                />
+              }
+            />
+          </Routes>
         </div>
       </main>
 
       <footer>
-        <p> 2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon Serry </p>
+        <p>
+          {" "}
+          2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon
+          Serry{" "}
+        </p>
       </footer>
 
-      {
-        chartNumber ?
+      {chartNumber ? (
         <ToastContainer
-                  theme="colored"
-                  position="bottom-center"
-                  autoClose={2000}
-                  hideProgressBar
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  draggable
-                  pauseOnHover
-              />
-        : null
-      }
+          theme="colored"
+          position="bottom-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          draggable
+          pauseOnHover
+        />
+      ) : null}
     </div>
   );
 }
