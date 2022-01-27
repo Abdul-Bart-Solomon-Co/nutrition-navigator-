@@ -11,6 +11,7 @@ import BrandedFoodListItem from "./BrandedFoodListItem";
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
 import { getDatabase, ref, push } from 'firebase/database';
+import { Modal } from "./Modal";
 
 
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
@@ -30,6 +31,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     // state to disable button if clicked once
     const [ disabled, setDisabled ] = useState(false);
 
+
+    const [showModal, setShowModal] = useState(false)
 
       // Axios call for search/instant endpoint
     useEffect(() => {
@@ -174,6 +177,11 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
+ //modalFeature
+    const openModal = () => {
+        setShowModal(prev => !prev)
+    }
+
 
     const handleCommonType = () => {
         setFoodTypeListed("common");
@@ -194,6 +202,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
              <form action="#" onSubmit={handleSubmit}>
               <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
               <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
+              {
+                <button onClick={openModal}>?</button>
+              }
+                <Modal showModal={showModal} setShowModal={setShowModal}/>
             </form>
 
             <div className="foodResultsContainer wrapper">
