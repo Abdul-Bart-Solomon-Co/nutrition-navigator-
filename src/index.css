@@ -314,7 +314,7 @@ button {
   text-align: center;
   margin: 0 auto;
   padding-bottom: 100px;
-  align-items: start;
+  align-items: flex-start;
   
 }
 
