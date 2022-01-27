@@ -177,7 +177,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
- modalFeature
+ //modalFeature
     const openModal = () => {
         setShowModal(prev => !prev)
     }
