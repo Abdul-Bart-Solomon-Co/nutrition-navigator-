@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "./Pagination.js";
 import FoodListItem from "./FoodListItem.js";
+import BrandedFoodListItem from "./BrandedFoodListItem";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
@@ -244,11 +245,11 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                         brandedFoodArray.length > 0 && foodTypeListed === "branded"
                             ? <Pagination
                                 data={brandedFoodArray}
-                                RenderedComponent={FoodListItem}
+                                RenderedComponent={BrandedFoodListItem}
                                 title="Branded Food"
                                 pageLimit={5}
                                 dataLimit={5}
-                                componentProps={handleDetailClick}
+                                componentProps={handleBrandedDetailClick}
                             />
                             : null
                     }
