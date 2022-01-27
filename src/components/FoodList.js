@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
 import { getDatabase, ref, push } from 'firebase/database';
+import { Modal } from "./Modal";
 
 
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
@@ -20,6 +21,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
+
+    const [showModal, setShowModal] = useState(false)
 
       // Axios call for search/instant endpoint
     useEffect(() => {
@@ -160,12 +163,20 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
+    const openModal = () => {
+        setShowModal(prev => !prev)
+    }
+
     return(
         <section>
 
              <form action="#" onSubmit={handleSubmit}>
               <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
               <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
+              {
+                <button onClick={openModal}>?</button>
+              }
+                <Modal showModal={showModal} setShowModal={setShowModal}/>
             </form>
 
             <div className="foodResultsContainer wrapper">
