@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import { filterByTagId, makeNutritionObj } from "../utils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagination from "./Pagination.js";
+import FoodListItem from "./FoodListItem.js";
+import BrandedFoodListItem from "./BrandedFoodListItem";
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
 import { getDatabase, ref, push } from 'firebase/database';
+import { Modal } from "./Modal";
 
 
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
@@ -19,7 +23,16 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ searchTerm, setSearchTerm ] = useState('');
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
+    const [ foodTypeListed, setFoodTypeListed ] = useState("common");
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
+    const appId = "69faf9cb";
+    const apiKey = "90db89eddcef2e54eea4099c6ab38907";
+
+    // state to disable button if clicked once
+    const [ disabled, setDisabled ] = useState(false);
+
+
+    const [showModal, setShowModal] = useState(false)
 
       // Axios call for search/instant endpoint
     useEffect(() => {
@@ -30,8 +43,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             url: `https://trackapi.nutritionix.com/v2/search/instant`,
             headers: {
             "Content-Type": "application/json",
-            "x-app-id": "081b5ced",
-            "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+            "x-app-id": appId,
+            "x-app-key": apiKey
             },
             params: {
             "query": searchTerm
@@ -40,22 +53,22 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             if(res.data.common.length > 0 ){
                 const commonArray = res.data.common;
                 setCommonFoodArray(filterByTagId(commonArray))
-            } else {
-                toast.error("Sorry no common food results found")
-            }
+            } 
 
             if (res.data.branded.length > 0) {
                 const brandedArray = res.data.branded;
                 //Can't filtered by tag_id since branded results dont seem to come with it.
                 setBrandedFoodArray(brandedArray)
-            } else {
-                toast.error("Sorry no common food results found")
+            } 
+
+            if (res.data.common.length === 0 && res.data.branded.length === 0){
+                toast.error("Sorry no food results found")
             }
             
         }).catch((error) => {
             toast.error("Sorry there was a problem getting data from the API")
         })
-     }
+     } 
 
     }, [searchTerm]);
 
@@ -67,8 +80,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             url: `https://trackapi.nutritionix.com/v2/natural/nutrients`,
             headers: {
             "Content-Type": "application/json",
-            "x-app-id": "081b5ced",
-            "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+            "x-app-id": appId,
+            "x-app-key": apiKey
             },
             data: {
             "query": foodItemName
@@ -96,8 +109,8 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                 url: ` https://trackapi.nutritionix.com/v2/search/item`,
                 headers: {
                     "Content-Type": "application/json",
-                    "x-app-id": "081b5ced",
-                    "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
+                    "x-app-id": appId,
+                    "x-app-key": apiKey
                 },
                 params: {
                     "nix_item_id": brandId
@@ -121,7 +134,9 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
       // handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        if (userInput === ""){
+            toast.warn("Please enter a food name");
+        }
         setSearchTerm(userInput);
         setUserInput('');
     }
@@ -133,11 +148,13 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     }
 
     const handleDetailClick = (foodName) => {
-    setFoodItemName(foodName);
+        setFoodItemName(foodName);
+        setDisabled(false);
     }
 
     const handleBrandedDetailClick = (nixId) => {
         setBrandId(nixId);
+        setDisabled(false);
     }
 
      // handles uploading data to firebase
@@ -160,18 +177,42 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     }};
 
+ //modalFeature
+    const openModal = () => {
+        setShowModal(prev => !prev)
+    }
+
+
+    const handleCommonType = () => {
+        setFoodTypeListed("common");
+    }
+
+    const handleBrandedType = () => {
+        setFoodTypeListed("branded");
+    }
+    // sets disabled class
+    const setDisabledButton = () => {
+        setDisabled(true);
+
+    }
+
     return(
         <section>
-
+            <div className="formContainer">
              <form action="#" onSubmit={handleSubmit}>
               <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
               <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
             </form>
-
+              {
+                  <button className="modalButton" onClick={openModal}>?</button>
+                }
+                <Modal showModal={showModal} setShowModal={setShowModal}/>
+            </div>
+            
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
 
-                    <div className="commonFoodList">
+                    {/* <div className="commonFoodList">
                         <h2>Common Food</h2>
                         {
                             commonFoodArray.map((foodItem) => {
@@ -184,9 +225,62 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                                 )
                             })   
                         }
-                    </div>
+                    </div> */}
 
-                    <div className="brandedFoodList">
+                    {/* Buttons that toggle common and branded foot lists */}
+
+                    {commonFoodArray.length > 0 || brandedFoodArray.length > 0
+                    ?<div className="foodTypeButtonContainer">
+                        <button
+                            onClick={handleCommonType}
+                            disabled={
+                                foodTypeListed === "common"
+                                    ? true
+                                    : false
+                            }>Common Foods</button>
+
+                        <button
+                            onClick={handleBrandedType}
+                            disabled={
+                                foodTypeListed === "branded"
+                                    ? true
+                                    : false
+                            }>Branded Foods</button>
+                    </div>
+                    : null
+                    }
+                    
+                    
+
+                    {
+                    // Ternary changes which food list type is displayed depending on button selected
+                    commonFoodArray.length > 0 && foodTypeListed === "common"
+                        ? <Pagination
+                            data={commonFoodArray}
+                            RenderedComponent={FoodListItem}
+                            title="Common Food"
+                            pageLimit={5}
+                            dataLimit={5}
+                            componentProps={handleDetailClick}
+                        />
+                        : null
+                    }
+                    {
+                        // Ternary changes which food list type is displayed depending on button selected
+                        brandedFoodArray.length > 0 && foodTypeListed === "branded"
+                            ? <Pagination
+                                data={brandedFoodArray}
+                                RenderedComponent={BrandedFoodListItem}
+                                title="Branded Food"
+                                pageLimit={5}
+                                dataLimit={5}
+                                componentProps={handleBrandedDetailClick}
+                            />
+                            : null
+                    }
+                    
+
+                    {/* <div className="brandedFoodList">
                         <h2>Branded Food</h2>
                         {
                             brandedFoodArray.map((foodItem) => {
@@ -200,12 +294,12 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
                             })
                         }
 
-                    </div>
+                    </div> */}
 
                 </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
-                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave}/>
+                <NutrientsDetail {...foodItemDetails} handleCompare={handleCompare} handleSave={handleSave} renderValue={disabled} setDisabledButton={setDisabledButton} />
             }
 
             </div>

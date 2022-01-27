@@ -1,6 +1,21 @@
+import { useState } from 'react';
+
 const NutrientsDetail = (props) => {
-    // const [ props.nf_calories, nf_dietary_fiber, nf_protein, nf_saturated_fat, nf_sugars, nf_total_carbohydrate, nf_total_fat, nf_sodium, full_nutrients, food_name, brand_name, photo ] = props;
+
+    // state to check how many items you can click to compare
+    const [ clicks, setClicks ] = useState(0);
+    const [ charts, setCharts ] = useState(1);
     
+
+    const changeClicks = () => {
+        if (clicks === 3) {
+            setCharts(charts + 1);
+            setClicks(0);
+        } else {
+            setClicks(clicks + 1);
+
+        }
+    }
     return(
         <div className="nutrientsContainer">
             <ul>
@@ -26,7 +41,10 @@ const NutrientsDetail = (props) => {
                 }
             </ul>
             { props.handleCompare &&
-            <button onClick={props.handleCompare}>Compare</button>
+            <button
+            onClick={() => [props.handleCompare(), props.setDisabledButton(), changeClicks()]}
+            disabled={props.renderValue ? true : false}
+            >Compare</button>
             }
 
             { props.handleSave &&
@@ -36,8 +54,15 @@ const NutrientsDetail = (props) => {
             {props.handleRemove &&
             <button onClick={props.handleRemove}>Remove</button>
             }
+
+            <p>Number of charts: {charts}</p>
+            <p>items in current chart: {clicks}</p>
         </div>
     )
 }
 
-export default NutrientsDetail
+export default NutrientsDetail;
+
+// so I need to disable the compare button when its clicked and then enable it when the component is rendered again
+// I will set up a use state in the nutrition detail to handle if the component has been clicked or not
+

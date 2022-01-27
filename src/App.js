@@ -186,36 +186,15 @@ function App() {
         <h1>Nutrition Navigator</h1>
       </header>
       <main>
-        <div className="mainBackground">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <FoodList
-                  handleCompare={handleCompare}
-                  savedFood={savedFood}
-                  foodItemDetails={foodItemDetails}
-                  setFoodItemDetails={setFoodItemDetails}
-                />
-              }
-            />
 
-            <Route
-              path="/saved"
-              element={<SavedList foodArray={savedFood} />}
-            />
+        <div className='mainBackground'>
+            <Routes>
+              <Route path='/' element={ <FoodList handleCompare={handleCompare} savedFood={savedFood} foodItemDetails={foodItemDetails} setFoodItemDetails={setFoodItemDetails}/>} />
 
-            <Route
-              path="/comparison"
-              element={
-                <Comparisons
-                  comparisonsArray={comparisonsArray}
-                  setComparisonsArray={setComparisonsArray}
-                  setChartNumber={setChartNumber}
-                />
-              }
-            />
-          </Routes>
+              <Route path='/saved' element={ <SavedList foodArray={savedFood} />}/>
+
+              <Route path='/comparison' element={ <Comparisons comparisonsArray={comparisonsArray} setComparisonsArray={setComparisonsArray} setChartNumber={setChartNumber} />}/>
+            </Routes>
         </div>
       </main>
 
