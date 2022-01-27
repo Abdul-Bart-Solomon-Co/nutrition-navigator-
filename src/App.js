@@ -146,6 +146,11 @@ function App() {
             <h4>NutriNav</h4>
           </div>
           <button className="hamburger-btn-container" onClick={handleToggle}>
+            {((chartNumber > 0) && !navOpen) && (
+              <div className='chart-notification-container'>
+                <p className="chart-notification">{chartNumber}</p>
+              </div>
+              )}
             { navOpen ? (
               <GiHamburgerMenu style={{ color: "#b20061", fontSize: "1.2rem", transition: "color 0.1s ease-in-out" }} />
             ) : (
@@ -167,7 +172,9 @@ function App() {
             </li>
             <li className="navLink">
               {chartNumber > 0 && (
-                <p className="chart-notification">{chartNumber}</p>
+                  <div className='chart-notification-container'>
+                  <p className="chart-notification">{chartNumber}</p>
+                </div>
               )}
               <Link to="/comparison" onClick={() => closeMenu()}>
                 Comparisons

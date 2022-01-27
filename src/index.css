@@ -83,20 +83,24 @@ nav {
   position: relative;
 }
 
-.chart-notification {
-  position: absolute;
-  background-color: #350482;
-  color: white;
+
+.chart-notification-container {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  padding: 3px 10px;
-  font-size: 0.8rem;
-  /* TODO: consider putting in div as numbers larger than 9 warp container */
-  /* positioning */
+  padding: 0.2em;
+  position: absolute;
+  top: -20px;
+  left: -24px;
+  background-color: #350482;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: -18px;
-  right: -20px;
+}
+
+.chart-notification {
+  color: white;
+  font-size: 0.8rem;
 }
 
 .navLink::after {
@@ -343,6 +347,14 @@ footer {
   cursor: pointer;
   background-color: transparent;
   border: none;
+}
+
+.nav-ul * {
+  color: #b20061;
+}
+
+.chart-notification {
+  color: #ffe1f9;
 }
 
   
