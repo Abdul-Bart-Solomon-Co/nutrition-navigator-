@@ -8,7 +8,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
-@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@600&family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@600&family=Montserrat:wght@400;700&display=swap');
 
 /* setting standard styling */
 html {
@@ -135,8 +135,14 @@ input[type=text] {
   color: #350482;
 }
 
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
 /* modal styling */
-form button {
+.modalButton {
   border-radius: 50%;
   text-align: center;
   background-color: #350482;
@@ -146,9 +152,11 @@ form button {
   width: 50px;
   height: 50px;
   padding-top: 5px;
-  z-index: 10;
+  margin-left: 40px;
   
 }
+
+
 
 .modalContainer {
   color: black;
@@ -160,6 +168,7 @@ form button {
   justify-content: center;
   align-items: center;
   top: 0;
+  left: 0;
 }
 
 .modalContentContainer {
@@ -187,16 +196,37 @@ form button {
 
 /* food list item styling */
 .searchList {
-  overflow-y: scroll;
-  height: 655px;
-  width: 70%;
+  width: 50%;
   padding: 30px 30px 0 30px;
   background-color: #350482;
   border-radius: 10px;
   margin-right: 20px;
   display: flex;
+  /* align-items: stretch; */
+  flex-direction: column;
 }
 
+.searchList:empty {
+  display: none;
+}
+
+button {
+  transition: all 0.2s ease-in;
+  color: #350482;
+}
+
+.searchList button:hover,
+.searchList button:focus,
+.pagination button:hover, 
+.pagination button:focus,
+.nutrientsContainer button:hover, 
+.nutrientsContainer button:focus,
+.chartBtn button:hover, 
+.chartBtn button:focus {
+  box-shadow: 0 0 0.3em 0.1em #b20061;
+  transform: translateY(-0.1em);
+  color: #b20061;
+}
 .searchList div {
   margin-top: 15px;
   border-radius: 10px;
@@ -234,8 +264,36 @@ form button {
   height: 60px;
 }
 
-.commonFoodList {
+/* .commonFoodList {
   margin-right: 20px;
+} */
+
+.foodTypeButtonContainer button {
+  border-radius: 10px;
+  border: none;
+  height: 50px;
+  background-color: #ffe1f9;
+  margin: 0 10px;
+  padding: 0 20px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.pagination button {
+  border-radius: 10px;
+  border: none;
+  background-color: #ffe1f9;
+  padding: 10px 20px;
+  margin: 0 10px 20px 10px;
+  height: 50px;
+}
+
+.pagination .prev, .pagination .next {
+  padding-top: 15px;
 }
 
 /* nutrients detail styling */
@@ -246,16 +304,20 @@ form button {
   text-align: center;
   margin: 0 auto;
   padding-bottom: 100px;
+  align-items: start;
   
 }
 
 .nutrientsContainer {
-  /* width: 50%; */
+  width: 50%;
   background-color: #350482;
   border-radius: 10px;
-  height: 655px;
   padding: 30px 0;
-  overflow-y: scroll;
+}
+
+.nutrientsContainer ul {
+  display: flex;
+  flex-direction: column;
 }
 
 .nutrientsContainer li {
@@ -268,10 +330,14 @@ form button {
   color: white;
 }
 
+.nutrientsContainer p {
+  padding: 10px 0;
+}
+
 .nutrientsContainer button {
   border-radius: 10px;
   border: none;
-  margin: 20px 10px 0 10px;
+  margin: 20px 10px 10px 10px;
   padding: 10px 15px;
   background-color: #ffe1f9;
 
@@ -283,33 +349,47 @@ form button {
   height: 125px;
 }
 
+
+
 /* styling for saved items page */
 
 .savedList {
   width: 100%;
 }
 
-.savedFood {
-  width: 100%;
+.savedList .dataContainer {
+  display: flex;
 }
 
-.savedFood .nutrientsContainer {
-overflow-y: hidden;
-margin-bottom: 30px;
+.savedList .nutrientsContainer p {
+  text-align: center;
 }
-.savedFood .nutrientsContainer ul{
+
+.savedList .dataContainer .nutrientsContainer {
+margin-bottom: 30px;
+width: auto;
+margin: 0 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.savedList .dataContainer .nutrientsContainer ul{
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
 }
 
-.savedFood .nutrientsContainer li{
+.savedList .dataContainer .nutrientsContainer li{
  width: 550px;
 text-align: center;
 }
+/* 
+.savedList .dataContainer .nutrientsContainer button {
+  margin: 0 auto;
+} */
 
-.savedFood .nutrientsContainer button {
-  margin-left: 50%;
+.savedList .pagination {
+  padding-top: 40px;
 }
 
 /* comparisons styling */

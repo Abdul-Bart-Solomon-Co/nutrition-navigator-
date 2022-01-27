@@ -152,7 +152,7 @@ const vitaminOptions = {
   //       ],
   // };  
     return (
-      <div>
+      <div className='chartBtn'>
         <button onClick={() => handleClick(false)}>Nutrition Data</button>
         <button onClick={() => handleClick(true)}>Vitamin Data</button>
         <button onClick={() => handleMutateChartsArray(index)}>Remove</button>

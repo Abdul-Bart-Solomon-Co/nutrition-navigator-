@@ -198,16 +198,17 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
 
     return(
         <section>
-
+            <div className="formContainer">
              <form action="#" onSubmit={handleSubmit}>
               <label className="sr-only" htmlFor="searchInput">Enter a Food Item:</label>
               <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
-              {
-                <button onClick={openModal}>?</button>
-              }
-                <Modal showModal={showModal} setShowModal={setShowModal}/>
             </form>
-
+              {
+                  <button className="modalButton" onClick={openModal}>?</button>
+                }
+                <Modal showModal={showModal} setShowModal={setShowModal}/>
+            </div>
+            
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
 

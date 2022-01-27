@@ -2,6 +2,8 @@ import { useState } from 'react';
 // Pagination component format taken from https://academind.com/tutorials/reactjs-pagination
 // Must pass component props under the componentProps object and then descructure them out in the component
 
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+
 const Pagination = (props) => {
     const { data, RenderedComponent, title, dataLimit, componentProps } = props;
     let pageLimit = props.pageLimit;
@@ -62,7 +64,7 @@ const Pagination = (props) => {
                 onClick={goToPreviousPage}
                 className={`prev ${currentPage === 1 ? "disabled" : ""}`}
                 disabled={currentPage === 1 ? true : false}
-                > &#60; 
+                > <FaChevronLeft /> 
                 </button>
 
                 {
@@ -84,7 +86,7 @@ const Pagination = (props) => {
                     onClick={goToNextPage}
                     className={`next ${currentPage === pages ? "disabled" : ""}`}
                     disabled={currentPage === pages ? true : false}
-                > &#62;
+                > <FaChevronRight />
                 </button>
 
             </div>
