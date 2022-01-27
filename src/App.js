@@ -5,7 +5,8 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { GiHamburgerMenu } from 'react-icons/gi';
+
+import { GiHamburgerMenu, GiFruitTree } from 'react-icons/gi';
 
 
 
@@ -142,7 +143,8 @@ function App() {
     <div>
       <header className="headerSection">
         <nav className="wrapper navBar">
-          <div>
+          <div className='logoContainer'>
+            <GiFruitTree />
             <h4>NutriNav</h4>
           </div>
           <button className="hamburger-btn-container" onClick={handleToggle}>
