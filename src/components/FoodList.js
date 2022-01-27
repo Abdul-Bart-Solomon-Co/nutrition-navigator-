@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Pagination from "./Pagination.js";
 import FoodListItem from "./FoodListItem.js";
 import BrandedFoodListItem from "./BrandedFoodListItem";
+import { BsPatchQuestionFill } from "react-icons/bs"
 
 // firebase imports
 import firebaseProject from '../firebaseSetup.js';
@@ -204,8 +205,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
               <input type='text' onChange={handleChange} value={userInput} placeholder="Enter Food Choice" />
             </form>
               {
-                  <button className="modalButton" onClick={openModal}>?</button>
-                }
+                <button className="modalButton" onClick={openModal}>
+                    <BsPatchQuestionFill />
+                </button>
+              }
                 <Modal showModal={showModal} setShowModal={setShowModal}/>
             </div>
             
