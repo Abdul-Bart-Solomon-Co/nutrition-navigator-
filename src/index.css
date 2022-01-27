@@ -319,29 +319,43 @@ button {
 }
 
 .nutrientsContainer {
-  width: 50%;
   background-color: #350482;
   border-radius: 10px;
-  padding: 30px 0;
+  padding: 1.5em;
+  min-width: 50%;
+}
+
+.top-level-div {
+  min-width: 50%;
 }
 
 .nutrientsContainer ul {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8em;
 }
 
 .nutrientsContainer li {
   color: white;
-  padding-top: 20px;
+  font-size: 0.9rem;
 }
 
 .nutrientsContainer h2 {
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: white;
 }
 
-.nutrientsContainer p {
-  padding: 10px 0;
+.bolded-values {
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px #000202, 4px 4px 0px rgba(0,0,0,0.25);
+}
+
+.nutrients-body {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 .nutrientsContainer button {
@@ -352,23 +366,39 @@ button {
   background-color: #ffe1f9;
 
 }
-
-.nutrientsContainer img {
+.nutrients-image-container {
+  width: 120px;
+}
+.nutrient-image-container img {
+  width: 150px;
+  height: 120px;
+  object-fit: cover;
   border-radius: 10px;
-  width: 125px;
-  height: 125px;
+}
+
+.nutrients-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0.78em;
+}
+
+.nutrient-header-text {
+   max-width: 50%;
+}
+
+.nutrient-header-text h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5em;
 }
 
 
 
 /* styling for saved items page */
 
-.savedList {
-  width: 100%;
-}
-
 .savedList .dataContainer {
   display: flex;
+  justify-content: center;
 }
 
 .savedList .nutrientsContainer p {
@@ -377,22 +407,12 @@ button {
 
 .savedList .dataContainer .nutrientsContainer {
 margin-bottom: 30px;
-width: auto;
 margin: 0 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
 }
-.savedList .dataContainer .nutrientsContainer ul{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-}
 
-.savedList .dataContainer .nutrientsContainer li{
- width: 550px;
-text-align: center;
-}
 /* 
 .savedList .dataContainer .nutrientsContainer button {
   margin: 0 auto;
@@ -481,5 +501,25 @@ footer {
   color: #ffe1f9;
 }
 
+/* nutrients detail styling */
+
+.foodResultsContainer {
+  flex-direction: column;
+}
+
+.nutrientsContainer {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.nutrient-image-container img {
+  width: auto;
+  height: 100%;
+}
+
+.nutrient-image-container {
+  height: 200px;
+}
   
 }
