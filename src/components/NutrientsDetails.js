@@ -6,7 +6,7 @@ const NutrientsDetail = (props) => {
     // state to check how many items you can click to compare
     const [ clicks, setClicks ] = useState(0);
     const [ charts, setCharts ] = useState(1);
-    
+    const [userInput, setUserInput] = useState('');
 
     const changeClicks = () => {
         if (clicks === 3) {
@@ -17,6 +17,10 @@ const NutrientsDetail = (props) => {
 
         }
 
+    }
+    // Controlled input for note form
+    const handleChange = (event) => {
+        setUserInput(event.target.value);
     }
    
     return(
@@ -39,6 +43,7 @@ const NutrientsDetail = (props) => {
                     <li>{'Carbohydrates: '} <span className='bolded-values'>{ trimNumberToOneDecimal(props.nf_total_carbohydrate)} g</span></li>
                     <li>{'Total Fat: '} <span className='bolded-values'>{ trimNumberToOneDecimal(props.nf_total_fat)} g</span></li>
                     <li>{'Sodium: '} <span className='bolded-values'>{ trimNumberToOneDecimal(props.nf_sodium) } mg</span></li>
+
                 </ul>
 
                 <ul>
@@ -49,11 +54,28 @@ const NutrientsDetail = (props) => {
                             )
                         })
                     }
-
+                    
                 </ul>
-
+                    
             </div> {/* end of .nutrients-body */}
-            
+            {
+                props.note
+                    ? <div className="note">
+                            <h3>Note</h3>
+                            <p>{props.note}</p>
+                        </div>
+                    : null
+            }
+
+            {/* Note form */}
+            <form action="#" onSubmit={(event) => props.handleNoteSubmit(event, userInput)}>
+                <div className="labelButtonContainer">
+                    <label htmlFor="note">Save a note</label>
+                    <button type="submit">Save</button>
+                </div>
+                <textarea value={userInput} onChange={handleChange} name="note" id="note" placeholder="Enter note here"></textarea>
+                
+            </form>
             
             <div className='nutrients-buttons-container'>
                 { props.handleCompare &&
@@ -73,6 +95,8 @@ const NutrientsDetail = (props) => {
 
                 <p>Number of charts: {charts}</p>
                 <p>items in current chart: {clicks}</p>
+
+                
 
             </div>
         </article>
