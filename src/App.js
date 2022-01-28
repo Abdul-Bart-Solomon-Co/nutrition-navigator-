@@ -97,10 +97,11 @@ function App() {
     <div>
       <header className="headerSection">
         <nav className="wrapper navBar">
-          <div className='logoContainer'>
-            <GiFruitTree />
-            <h4>NutriNav</h4>
-          </div>
+              <Link to="/" className='logoContainer'>
+                <GiFruitTree />
+                <h4>NutriNav</h4>
+              </Link>
+
           <button className="hamburger-btn-container" onClick={handleToggle}>
             {((chartNumber > 0) && !navOpen) && (
               <div className='chart-notification-container'>
