@@ -4,7 +4,7 @@ const SavedItem = (props) => {
     const handleRemove = props.componentProps;
     const {key, foodDetails } = props.data;
     return (
-        <div key={key}>
+        <div key={key} className='top-level-div'>
             <NutrientsDetail {...foodDetails} handleRemove={() => handleRemove(key)}  />
         </div>
     )

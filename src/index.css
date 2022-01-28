@@ -73,6 +73,10 @@ nav {
   /* width: 40%; */
 }
 
+.logoContainer {
+  display: flex;
+}
+
 /* mobile button */
 .hamburger-btn-container {
   display: none;
@@ -148,29 +152,30 @@ input[type=text] {
 .formContainer {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: flex-end;
 }
 
 /* modal styling */
 .modalButton {
-  border-radius: 50%;
+  /* border-radius: 50%; */
   text-align: center;
   background-color: white;
   color: #350482;
-  font-size: 1.5rem;
-  border: 3px solid #350482;
-  width: 50px;
-  height: 50px;
+  font-size: 2.5rem;
+  border: none;
   padding-top: 5px;
   margin-left: 40px;
-  
+  transition: all 0.2s ease-in;
+
 }
 
 .modalButton:hover,
 .modalButton:focus {
-  box-shadow: inset 0 0 0 2em #350482;
-  color: white;
+  color: #b20061;
+  transform: translateY(-0.06em);
 }
+
+
 
 
 
@@ -185,6 +190,7 @@ input[type=text] {
   align-items: center;
   top: 0;
   left: 0;
+  z-index: 10;
 }
 
 .modalContentContainer {
@@ -194,16 +200,49 @@ input[type=text] {
   position: relative;
   margin: 0 auto;
   border-radius: 10px;
+  text-align: center;
+  padding: 50px;
+  
+}
+
+.modalContentContainer p {
+  padding: 10px;
+  line-height: 1.4em;
+}
+
+.modalContentContainer h3 {
+  padding-top: 20px;
+}
+
+.modalContentContainer .logoContainer {
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
 .closeIcon {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 10px;
+  background-color: #350482;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  transition: all 0.4s ease-in;
+}
+
+.closeIcon:hover,
+.closeIcon:focus {
+  box-shadow: inset 0 0 0 2em #350482;
+  color: #b20061;
 }
 
 
 /* main area */
+
+main {
+  min-height: 34vh;
+}
 
 .mainBackground {
   color: white
@@ -211,7 +250,6 @@ input[type=text] {
 
 /* food list item styling */
 .searchList {
-  width: 50%;
   padding: 30px 30px 0 30px;
   background-color: #350482;
   border-radius: 10px;
@@ -242,6 +280,15 @@ button {
   transform: translateY(-0.1em);
   color: #b20061;
 }
+
+.searchList button:hover:disabled,
+.searchList button:focus:disabled,
+.pagination button:hover:disabled, 
+.pagination button:focus:disabled {
+  box-shadow: none;
+  transform: none;
+  color: #350482;
+}
 .searchList div {
   margin-top: 15px;
   border-radius: 10px;
@@ -255,6 +302,7 @@ button {
 .searchFlexContainer {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .searchFlexContainer h3 {
@@ -267,11 +315,22 @@ button {
   border-radius: 10px;
 }
 
+.searchFlexContainer p {
+  margin: 0 5px;
+  font-size: clamp(0.5rem, 0.7rem + 1vw, 1rem);
+}
+
 .searchFlexContainer button {
   border-radius: 10px;
   border: none;
   height: 50px;
   background-color: #ffe1f9;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2em;
 }
 
 .listImg {
@@ -283,13 +342,24 @@ button {
   margin-right: 20px;
 } */
 
+
+.foodTypeButtonContainer {
+  display:flex;
+  justify-content: center;
+}
 .foodTypeButtonContainer button {
   border-radius: 10px;
   border: none;
-  height: 50px;
+  min-height: 50px;
   background-color: #ffe1f9;
   margin: 0 10px;
-  padding: 0 20px;
+  padding: 5px 20px;
+  font-size: clamp(0.6rem, 0.8rem + 1vw, 1rem);
+}
+
+.foodTypeButtonContainer button:disabled,
+.pagination button:disabled {
+  background-color:rgba(255, 225, 249,0.5);
 }
 
 .pagination {
@@ -302,9 +372,9 @@ button {
   border-radius: 10px;
   border: none;
   background-color: #ffe1f9;
-  padding: 10px 20px;
-  margin: 0 10px 20px 10px;
-  height: 50px;
+  padding: 10px 5%;
+  margin: 0 1% 20px 1%;
+  font-size: 1rem;  
 }
 
 .pagination .prev, .pagination .next {
@@ -320,60 +390,100 @@ button {
   margin: 0 auto;
   padding-bottom: 100px;
   align-items: flex-start;
+  justify-content: center;
   
 }
 
 .nutrientsContainer {
-  width: 50%;
   background-color: #350482;
   border-radius: 10px;
-  padding: 30px 0;
+  padding: 1.5em;
+  min-width: 50%;
+}
+
+.top-level-div {
+  min-width: 50%;
 }
 
 .nutrientsContainer ul {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8em;
 }
 
 .nutrientsContainer li {
   color: white;
-  padding-top: 20px;
+  font-size: 0.9rem;
 }
 
 .nutrientsContainer h2 {
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: white;
 }
 
-.nutrientsContainer p {
-  padding: 10px 0;
+.bolded-values {
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px #000202, 4px 4px 0px rgba(0,0,0,0.25);
+}
+
+.nutrients-body {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 .nutrientsContainer button {
   border-radius: 10px;
   border: none;
-  margin: 20px 10px 10px 10px;
+  margin: 9px auto;
   padding: 10px 15px;
   background-color: #ffe1f9;
 
 }
-
-.nutrientsContainer img {
+.nutrients-image-container {
+  width: 120px;
+}
+.nutrient-image-container img {
+  width: 150px;
+  height: 120px;
+  object-fit: cover;
   border-radius: 10px;
-  width: 125px;
-  height: 125px;
+}
+
+.nutrients-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0.78em;
+}
+
+.nutrient-header-text {
+   max-width: 50%;
+}
+
+.nutrient-header-text h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5em;
+}
+
+.nutrients-buttons-container {
+  padding: 1em 0 1em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  align-items: center;
 }
 
 
 
 /* styling for saved items page */
 
-.savedList {
-  width: 100%;
-}
-
 .savedList .dataContainer {
   display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 .savedList .nutrientsContainer p {
@@ -382,26 +492,15 @@ button {
 
 .savedList .dataContainer .nutrientsContainer {
 margin-bottom: 30px;
-width: auto;
-margin: 0 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
-}
-.savedList .dataContainer .nutrientsContainer ul{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+
 }
 
-.savedList .dataContainer .nutrientsContainer li{
- width: 550px;
-text-align: center;
-}
-/* 
 .savedList .dataContainer .nutrientsContainer button {
   margin: 0 auto;
-} */
+}
 
 .savedList .pagination {
   padding-top: 40px;
@@ -421,10 +520,18 @@ text-align: center;
 footer {
   text-align: center;
   padding: 20px 0;
+  margin-top: 5vh;
 }
 
 /* Welcome to Media Query Land! */
 /* Tread carefully yu gi boy */
+
+@media (max-width: 1000px) {
+  /* modal  */
+  .modalContentContainer {
+    width: 100%;
+  }
+}
 
 @media (max-width: 640px) {
   /* mobile menu styling begins */
@@ -452,39 +559,173 @@ footer {
 
   /* positioning flex children */
   align-items: center;
-}
-
-.nav-ul.showMenu {
-  height: 100%;
-  width: 100%;
-}
-
-.nav-ul li:first-child {
-  margin-top: 7rem;
-}
-
-.navBar {
-  position: relative;
-}
-
-.hamburger-btn-container {
-  display: block;
-  position: fixed;
-  right: 1em;
-  top: 1.2em;
-  z-index: 10;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
-.nav-ul * {
-  color: #b20061;
-}
-
-.chart-notification {
-  color: #ffe1f9;
-}
-
   
 }
+
+/* Search list styling */
+.searchFlexContainer p {
+  font-size: 0.8rem;
+}
+
+  .nav-ul.showMenu {
+    height: 100%;
+    width: 100%;
+  }
+
+  .nav-ul li:first-child {
+    margin-top: 7rem;
+  }
+
+  .navBar {
+    position: relative;
+  }
+
+  .hamburger-btn-container {
+    display: block;
+    position: fixed;
+    right: 1em;
+    top: 1.2em;
+    z-index: 10;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
+  .nav-ul * {
+    color: #b20061;
+  }
+
+  .chart-notification {
+    color: #ffe1f9;
+  }
+
+  .formContainer {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .modalButton {
+    margin: 0;
+  }
+
+  form {
+    padding-top: 10px;
+  }
+
+  .chartBtn button {
+    padding: 0.5em;
+    margin: 20px 0 0 10px;
+    font-size: 0.7rem;
+  }
+
+  .modalContentContainer p {
+    font-size: 0.7rem;
+  }
+
+
+/* Search list mobile stylings */
+
+  .searchList,
+  .nutrientsContainer{
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+
+/* nutrients detail styling */
+
+.nutrientsContainer {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.nutrient-image-container img {
+  width: auto;
+  height: 100%;
+}
+
+.nutrient-image-container {
+  height: 200px;
+}
+}
+
+@media (max-width: 820px) {
+  .nutrientsContainer {
+    width: 100%;
+  }
+ }
+
+ @media (max-width: 1200px) {
+  /* Search list mobile stylings */
+  .foodResultsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .foodResultsContainer .searchList,
+  .foodResultsContainer .nutrientsContainer{
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: 700px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .top-level-div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 630px) {
+  .nutrients-body {
+    flex-direction: column;
+
+  }
+
+  .nutrientsContainer ul {
+    align-items: center;
+  }
+
+  .nutrients-header {
+    justify-content: center;
+  }
+ }
+
+@media (max-width: 1315px) {
+  /* Saved items page */
+  .dataContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .dataContainer * {
+    max-width: 700px;
+  }
+
+  .nutrient-header-text h2 {
+    font-size: clamp(0.5rem, 0.5rem + 2.5vw, 1.3rem)
+  }
+
+  .nutrient-header-text h2,
+  .nutrient-header-text h3 {
+    text-align: center;
+  }
+
+
+  .nutrient-image-container {
+    display: flex;
+    justify-content: center;
+    max-width: 60%;
+  }
+
+  .nutrient-image-container img {
+    width: 70%;
+    object-fit: contain;
+  }
+}
+
+
+  

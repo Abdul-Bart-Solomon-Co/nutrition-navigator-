@@ -113,8 +113,6 @@ export const exchangeObject = (comparisonObj) => {
     return newComparisonObj;
 }
 
-
-
 // First we need to turn array to an object
 
 // unfortunately we need to make a vitamins object
@@ -138,4 +136,10 @@ export const vitaminsExchange = (comparisonObj) => {
 
     return newComparisonObj;
 
+}
+
+export const trimNumberToOneDecimal = (num) => {
+    let rounded = Math.round(num * 10) / 10;
+    let fixed = rounded.toFixed(1);
+    return parseFloat(fixed)
 }

@@ -1,11 +1,11 @@
-import './App.css';
 import { Route, Routes, Link } from "react-router-dom";
 import firebaseProject from './firebaseSetup.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { SavedList } from './components/SavedList';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { GiHamburgerMenu } from 'react-icons/gi';
+
+import { GiHamburgerMenu, GiFruitTree } from 'react-icons/gi';
 
 
 
@@ -27,30 +27,6 @@ function App() {
   // hamburger menu open/closed state
   const [ navOpen, setNavOpen ] = useState(false);
 
-  // brings up branded/common products
-  // Axios call for search/instant endpoint
-  // useEffect(() => {
-  //   if(searchTerm.length > 0) {
-  //     axios({
-  //       method: "GET",
-  //       dataResponse: "json",
-  //       url: `https://trackapi.nutritionix.com/v2/search/instant`,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "x-app-id": "081b5ced",
-  //         "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
-  //       },
-  //       params: {
-  //         "query": searchTerm
-  //       }
-  //     }).then((res) => {
-  //       const commonArray =res.data.common;
-  //       setFoodArray(filterByTagId(commonArray))
-  //     })
-  //   }
-
-  // }, [searchTerm]);
-
 
   // use effect to handle firebase
     // get the data from firebase
@@ -66,7 +42,6 @@ function App() {
       // console.log(response.val());
       // format the data we get back first
       // our object from firebase looks like this
-      // Object { Book1: "Catcher In the Rye", Book2: "To Kill A Mockingbird", Book3: "Clifford The Big Red Dog" }
 
       const newFood = [];
 
@@ -75,8 +50,8 @@ function App() {
       const data = response.val();
 
       for (let key in data) {
-        // fill the array with { key: book1, name: "Title of the book"} type objects
         newFood.push({key: key, foodDetails: data[key]});
+
       }
 
       // put new books into books
@@ -84,27 +59,6 @@ function App() {
 
     })
   }, []);
-
-  // useEffect t
-
-
-  
-
-  //  axios({
-  //   method: "GET",
-  //   dataResponse: "json",
-  //    url: `https://trackapi.nutritionix.com/v2/search/item`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "x-app-id": "081b5ced",
-  //     "x-app-key": "424576e2352c2f4a8443cce73c99e5d7"
-  //   },
-  //   params: {
-  //     nix_item_id: "513fc9e73fe3ffd40300109f"
-  //   }
-  // }).then((res) => {
-  //   console.log(res.data)
-  // })
 
 
   const handleCompare = () => {
@@ -142,7 +96,8 @@ function App() {
     <div>
       <header className="headerSection">
         <nav className="wrapper navBar">
-          <div>
+          <div className='logoContainer'>
+            <GiFruitTree />
             <h4>NutriNav</h4>
           </div>
           <button className="hamburger-btn-container" onClick={handleToggle}>
