@@ -18,6 +18,7 @@ const NutrientsDetail = (props) => {
         }
 
     }
+   
     return(
         <article className="nutrientsContainer">
             <div className='nutrients-header'>

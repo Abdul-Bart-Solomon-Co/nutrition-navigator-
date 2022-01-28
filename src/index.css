@@ -239,13 +239,16 @@ input[type=text] {
 
 /* main area */
 
+main {
+  min-height: 34vh;
+}
+
 .mainBackground {
   color: white
 }
 
 /* food list item styling */
 .searchList {
-  width: 50%;
   padding: 30px 30px 0 30px;
   background-color: #350482;
   border-radius: 10px;
@@ -433,7 +436,7 @@ button {
 .nutrientsContainer button {
   border-radius: 10px;
   border: none;
-  margin: 20px 10px 10px 10px;
+  margin: 9px auto;
   padding: 10px 15px;
   background-color: #ffe1f9;
 
@@ -464,6 +467,14 @@ button {
   margin-bottom: 0.5em;
 }
 
+.nutrients-buttons-container {
+  padding: 1em 0 1em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  align-items: center;
+}
+
 
 
 /* styling for saved items page */
@@ -471,6 +482,7 @@ button {
 .savedList .dataContainer {
   display: flex;
   justify-content: center;
+  gap: 1em;
 }
 
 .savedList .nutrientsContainer p {
@@ -479,7 +491,6 @@ button {
 
 .savedList .dataContainer .nutrientsContainer {
 margin-bottom: 30px;
-margin: 0 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -508,6 +519,7 @@ align-items: center;
 footer {
   text-align: center;
   padding: 20px 0;
+  margin-top: 5vh;
 }
 
 /* Welcome to Media Query Land! */
@@ -546,8 +558,12 @@ footer {
 
   /* positioning flex children */
   align-items: center;
-
   
+}
+
+/* Search list styling */
+.searchFlexContainer p {
+  font-size: 0.8rem;
 }
 
   .nav-ul.showMenu {
@@ -607,9 +623,6 @@ footer {
 
 
 /* Search list mobile stylings */
-  .foodResultsContainer {
-    flex-direction: column-reverse;
-  }
 
   .searchList,
   .nutrientsContainer{
@@ -619,10 +632,6 @@ footer {
 
 
 /* nutrients detail styling */
-
-.foodResultsContainer {
-  flex-direction: column;
-}
 
 .nutrientsContainer {
   width: 100%;
@@ -639,4 +648,83 @@ footer {
   height: 200px;
 }
 }
+
+@media (max-width: 820px) {
+  .nutrientsContainer {
+    width: 100%;
+  }
+ }
+
+ @media (max-width: 1200px) {
+  /* Search list mobile stylings */
+  .foodResultsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .foodResultsContainer .searchList,
+  .foodResultsContainer .nutrientsContainer{
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: 700px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .top-level-div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 630px) {
+  .nutrients-body {
+    flex-direction: column;
+
+  }
+
+  .nutrientsContainer ul {
+    align-items: center;
+  }
+
+  .nutrients-header {
+    justify-content: center;
+  }
+ }
+
+@media (max-width: 1315px) {
+  /* Saved items page */
+  .dataContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  .dataContainer * {
+    max-width: 700px;
+  }
+
+  .nutrient-header-text h2 {
+    font-size: clamp(0.5rem, 0.5rem + 2.5vw, 1.3rem)
+  }
+
+  .nutrient-header-text h2,
+  .nutrient-header-text h3 {
+    text-align: center;
+  }
+
+
+  .nutrient-image-container {
+    display: flex;
+    justify-content: center;
+    max-width: 60%;
+  }
+
+  .nutrient-image-container img {
+    width: 70%;
+    object-fit: contain;
+  }
+}
+
+
   
