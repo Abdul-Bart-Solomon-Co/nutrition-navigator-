@@ -155,10 +155,25 @@ function App() {
       </main>
 
       <footer>
-        <p>
-          {" "}
-          <FaCopyright /> 2022 Created @ <a href="https://junocollege.com/">Juno College</a> by <a href="https://www.linkedin.com/in/abdul-abdi-5321871b2/"> <FaLinkedin /> </a>Abdul Abdi<a href="https://github.com/Abdul1Abdi"> <FaGithubSquare /> </a>, <a href="https://www.linkedin.com/in/bart-batalinski/"> <FaLinkedin /> </a>Bart Batalinski<a href="https://github.com/bbatal"> <FaGithubSquare /> </a> and <a href="https://www.linkedin.com/in/solomon-serry-b931b3225"> <FaLinkedin /> </a>Solomon Serry<a href="https://github.com/SolomonSerry"> <FaGithubSquare /> </a>{" "}
-        </p>
+          <h2 className="footer-header"><FaCopyright /> 2022 Created @ <a href="https://junocollege.com/">Juno College by: </a>  </h2>
+          <ul className="footer-name-container">
+            <li className="footer-name">
+              <p className="bolded-names">Abdul Abdi</p>
+              <a href="https://www.linkedin.com/in/abdul-abdi-5321871b2/" target='_blank' rel="noreferrer"> <FaLinkedin /> </a>
+              <a href="https://github.com/Abdul1Abdi" target='_blank' rel="noreferrer"> <FaGithubSquare />, </a>
+            </li>
+            <li className="footer-name">
+                <p className="bolded-names">Bart Batalinski</p>
+                <a href="https://www.linkedin.com/in/bart-batalinski/" target='_blank' rel="noreferrer"> <FaLinkedin /> </a>
+                <a href="https://github.com/bbatal" target='_blank' rel="noreferrer"> <FaGithubSquare />, </a>
+            </li>
+            <li className="footer-name">
+                <p className="bolded-names">and Solomon Serry</p>
+                <a href="https://www.linkedin.com/in/solomon-serry-b931b3225" target='_blank' rel="noreferrer"> <FaLinkedin /> </a>
+                <a href="https://github.com/SolomonSerry" target='_blank' rel="noreferrer"> <FaGithubSquare /> </a>
+            </li>
+          </ul>
+           
       </footer>
 
       {chartNumber ? (
