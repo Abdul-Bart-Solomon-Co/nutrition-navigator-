@@ -73,6 +73,10 @@ nav {
   /* width: 40%; */
 }
 
+.logoContainer {
+  display: flex;
+}
+
 /* mobile button */
 .hamburger-btn-container {
   display: none;
@@ -148,23 +152,29 @@ input[type=text] {
 .formContainer {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: flex-end;
 }
 
 /* modal styling */
 .modalButton {
-  border-radius: 50%;
+  /* border-radius: 50%; */
   text-align: center;
-  background-color: #350482;
-  color: white;
-  font-size: 1.5rem;
+  background-color: white;
+  color: #350482;
+  font-size: 2.5rem;
   border: none;
-  width: 50px;
-  height: 50px;
   padding-top: 5px;
   margin-left: 40px;
-  
+  transition: all 0.2s ease-in;
+
 }
+
+.modalButton:hover,
+.modalButton:focus {
+  color: #b20061;
+  transform: translateY(-0.06em);
+}
+
 
 
 
@@ -179,22 +189,51 @@ input[type=text] {
   align-items: center;
   top: 0;
   left: 0;
+  z-index: 10;
 }
 
 .modalContentContainer {
   background-color: #350482;
   color: white;
   width: 50%;
-  height: 500px;
   position: relative;
   margin: 0 auto;
   border-radius: 10px;
+  text-align: center;
+  padding: 50px;
+  
+}
+
+.modalContentContainer p {
+  padding: 10px;
+  line-height: 1.4em;
+}
+
+.modalContentContainer h3 {
+  padding-top: 20px;
+}
+
+.modalContentContainer .logoContainer {
+  position: absolute;
+  left: 15px;
+  top: 15px;
 }
 
 .closeIcon {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 10px;
+  background-color: #350482;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  transition: all 0.4s ease-in;
+}
+
+.closeIcon:hover,
+.closeIcon:focus {
+  box-shadow: inset 0 0 0 2em #350482;
+  color: #b20061;
 }
 
 
@@ -352,29 +391,43 @@ button {
 }
 
 .nutrientsContainer {
-  width: 50%;
   background-color: #350482;
   border-radius: 10px;
-  padding: 30px 0;
+  padding: 1.5em;
+  min-width: 50%;
+}
+
+.top-level-div {
+  min-width: 50%;
 }
 
 .nutrientsContainer ul {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8em;
 }
 
 .nutrientsContainer li {
   color: white;
-  padding-top: 20px;
+  font-size: 0.9rem;
 }
 
 .nutrientsContainer h2 {
-  text-transform: capitalize;
+  text-transform: uppercase;
   color: white;
 }
 
-.nutrientsContainer p {
-  padding: 10px 0;
+.bolded-values {
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px #000202, 4px 4px 0px rgba(0,0,0,0.25);
+}
+
+.nutrients-body {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 .nutrientsContainer button {
@@ -385,23 +438,39 @@ button {
   background-color: #ffe1f9;
 
 }
-
-.nutrientsContainer img {
+.nutrients-image-container {
+  width: 120px;
+}
+.nutrient-image-container img {
+  width: 150px;
+  height: 120px;
+  object-fit: cover;
   border-radius: 10px;
-  width: 125px;
-  height: 125px;
+}
+
+.nutrients-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0.78em;
+}
+
+.nutrient-header-text {
+   max-width: 50%;
+}
+
+.nutrient-header-text h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5em;
 }
 
 
 
 /* styling for saved items page */
 
-.savedList {
-  width: 100%;
-}
-
 .savedList .dataContainer {
   display: flex;
+  justify-content: center;
 }
 
 .savedList .nutrientsContainer p {
@@ -410,26 +479,16 @@ button {
 
 .savedList .dataContainer .nutrientsContainer {
 margin-bottom: 30px;
-width: auto;
 margin: 0 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
-}
-.savedList .dataContainer .nutrientsContainer ul{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
+
 }
 
-.savedList .dataContainer .nutrientsContainer li{
- width: 550px;
-text-align: center;
-}
-/* 
 .savedList .dataContainer .nutrientsContainer button {
   margin: 0 auto;
-} */
+}
 
 .savedList .pagination {
   padding-top: 40px;
@@ -453,6 +512,30 @@ footer {
 
 /* Welcome to Media Query Land! */
 /* Tread carefully yu gi boy */
+
+
+@media (max-width: 1200px) {
+  /* Search list mobile stylings */
+  .foodResultsContainer {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  
+  .foodResultsContainer .searchList,
+  .foodResultsContainer .nutrientsContainer{
+    width: 100%;
+    margin-bottom: 10px;
+    max-width: 700px;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  /* modal  */
+  .modalContentContainer {
+    width: 100%;
+  }
+}
 
 @media (max-width: 640px) {
   /* mobile menu styling begins */
@@ -480,50 +563,88 @@ footer {
 
   /* positioning flex children */
   align-items: center;
+
+  
 }
 
-.nav-ul.showMenu {
-  height: 100%;
-  width: 100%;
-}
-
-.nav-ul li:first-child {
-  margin-top: 7rem;
-}
-
-.navBar {
-  position: relative;
-}
-
-.hamburger-btn-container {
-  display: block;
-  position: fixed;
-  right: 1em;
-  top: 1.2em;
-  z-index: 10;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
-.nav-ul * {
-  color: #b20061;
-}
-
-.chart-notification {
-  color: #ffe1f9;
-}
-
-
-/* Search list mobile stylings */
-  .foodResultsContainer {
-    flex-direction: column-reverse;
-  }
-
-  .searchList,
-  .nutrientsContainer{
+  .nav-ul.showMenu {
+    height: 100%;
     width: 100%;
-    margin-bottom: 10px;
   }
 
+  .nav-ul li:first-child {
+    margin-top: 7rem;
+  }
+
+  .navBar {
+    position: relative;
+  }
+
+  .hamburger-btn-container {
+    display: block;
+    position: fixed;
+    right: 1em;
+    top: 1.2em;
+    z-index: 10;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+
+  .nav-ul * {
+    color: #b20061;
+  }
+
+  .chart-notification {
+    color: #ffe1f9;
+  }
+
+  .formContainer {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .modalButton {
+    margin: 0;
+  }
+
+  form {
+    padding-top: 10px;
+  }
+
+  .chartBtn button {
+    padding: 0.5em;
+    margin: 20px 0 0 10px;
+    font-size: 0.7rem;
+  }
+
+  .modalContentContainer p {
+    font-size: 0.7rem;
+  }
+
+
+
+/* nutrients detail styling */
+
+.nutrientsContainer {
+  width: 100%;
+  border-radius: 10px;
+  padding: 0;
 }
+
+.nutrient-image-container img {
+  width: auto;
+  height: 100%;
+}
+
+.nutrient-image-container {
+  height: 200px;
+}
+
+/* Search list styling */
+.searchFlexContainer p {
+  font-size: 0.8rem;
+}
+
+}
+  
