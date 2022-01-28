@@ -68,6 +68,8 @@ const NutrientsDetail = (props) => {
             }
 
             {/* Note form */}
+            {/* When the form is submitted it calls the handleNoteSubmit function from its props */}
+            {/* This will pass it the event that triggered it, and the current value of userInput which is the note text */}
             <form action="#" onSubmit={(event) => props.handleNoteSubmit(event, userInput)}>
                 <div className="labelButtonContainer">
                     <label htmlFor="note">Save a note</label>

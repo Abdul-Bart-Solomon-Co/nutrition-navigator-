@@ -1,5 +1,10 @@
 import { useState } from 'react';
 // Pagination component format taken from https://academind.com/tutorials/reactjs-pagination
+// Requires data as an array or info you want to render
+// Requires a component that will be used to render that data
+// Requires a title
+// data limit which will dictate how much data can be in each page
+// and a componentProps object with all the other necessary props for the rendered component in it
 // Must pass component props under the componentProps object and then descructure them out in the component
 
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
@@ -9,6 +14,9 @@ const Pagination = (props) => {
     let pageLimit = props.pageLimit;
     const pages = Math.round(data.length/dataLimit)
     const [ currentPage, setCurrentPage ] =useState(1)
+    //If the maximum number of pages possible based on the data limit is less then the set page limit
+    // This will reduce the page limit to that. eg if page limit is set to 5 when pagination is called
+    // But there is only enough data for 3 pages based on the datalimit per page then it will only show 3 pages
     if (pages < pageLimit){
         pageLimit = pages;
     }
@@ -35,6 +43,7 @@ const Pagination = (props) => {
     }
 
     //Gets page numbers to be displayed
+    //Returns array of page numbers based on current page and page limit
     const getPageNumbers = () => {
         const firstPage = Math.floor((currentPage -1)/pageLimit) * pageLimit
         const pageNumberArray = [];
@@ -48,6 +57,7 @@ const Pagination = (props) => {
         <div>
             <h2>{title}</h2>
 
+            {/* This is the portion the paginated data will be rendered using the passed in component */}
             <div className="dataContainer">
                 {
                     paginateData().map((data, index) => {
@@ -58,7 +68,8 @@ const Pagination = (props) => {
                     })
                 }
             </div>
-
+            {/* This is the page selector buttons at the bottom */}
+            {/* Current page button will be disabled along with the change to prev button on page 1 and change to next button on the last page */}
             <div className="pagination">
                 <button 
                 onClick={goToPreviousPage}

@@ -15,6 +15,9 @@ export const SavedList = ({ foodArray }) => {
         remove(dbFoodAddress);
     }
 
+    // Takes event note and key to save note to database
+    // This is passed into pagination which passes it to saved items, this is where the key is passed into it.
+    // This is then passed into NutrientsDetails which will give it the event and note.
     const handleNoteSubmit = (event, note, foodKey) => {
         event.preventDefault();
         const database = getDatabase(firebaseProject);
