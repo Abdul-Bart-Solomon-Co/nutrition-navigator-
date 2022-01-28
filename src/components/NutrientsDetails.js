@@ -70,14 +70,18 @@ const NutrientsDetail = (props) => {
             {/* Note form */}
             {/* When the form is submitted it calls the handleNoteSubmit function from its props */}
             {/* This will pass it the event that triggered it, and the current value of userInput which is the note text */}
-            <form action="#" onSubmit={(event) => props.handleNoteSubmit(event, userInput)}>
-                <div className="labelButtonContainer">
-                    <label htmlFor="note">Save a note</label>
-                    <button type="submit">Save</button>
-                </div>
-                <textarea value={userInput} onChange={handleChange} name="note" id="note" placeholder="Enter note here"></textarea>
-                
-            </form>
+
+            { props.handleRemove ? 
+                <form action="#" onSubmit={(event) => props.handleNoteSubmit(event, userInput)}>
+                    <div className="labelButtonContainer">
+                        <label htmlFor="note">Save a note</label>
+                        <button type="submit">Save</button>
+                    </div>
+                    <textarea value={userInput} onChange={handleChange} name="note" id="note" placeholder="Enter note here"></textarea>
+                    
+                </form>
+                : null
+            }
             
             <div className='nutrients-buttons-container'>
                 { props.handleCompare &&
@@ -95,8 +99,14 @@ const NutrientsDetail = (props) => {
                 <button onClick={props.handleRemove}>Remove</button>
                 }
 
-                <p>Number of charts: {charts}</p>
-                <p>items in current chart: {clicks}</p>
+
+                { props.handleCompare ? 
+                    <>
+                        <p>Number of charts: {charts}</p>
+                        <p>items in current chart: {clicks}</p>
+                    </>
+                    : null
+                }
 
                 
 
