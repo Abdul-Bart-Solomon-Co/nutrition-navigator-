@@ -34,8 +34,10 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
     // const appId = "69faf9cb";
     // const apiKey = "90db89eddcef2e54eea4099c6ab38907";
-    const appId = "081b5ced";
-    const apiKey = "424576e2352c2f4a8443cce73c99e5d7";
+    // const appId = "081b5ced";
+    // const apiKey = "424576e2352c2f4a8443cce73c99e5d7";
+    const appId = "0944aa71";
+    const apiKey = "9b6a67a5f0146684414fbaebda6ecdc5";
 
     // state to disable button if clicked once
     const [ disabled, setDisabled ] = useState(false);
