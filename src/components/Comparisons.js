@@ -2,7 +2,6 @@ import { BarChart } from '../components/Chart.js';
 
 
 const Comparisons = (props) => {
-    console.log(props.chartNumber);
       // if more than 3 items are in the chartData array then we need to make a new chart
     let arrayOfCharts;
     const splitArrayIntoChunksOfLen = (arr, len) => {
