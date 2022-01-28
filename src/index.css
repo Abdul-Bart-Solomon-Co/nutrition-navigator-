@@ -178,6 +178,7 @@ input[type=text] {
 
 
 
+
 .modalContainer {
   color: black;
   position: fixed;
@@ -561,6 +562,19 @@ footer {
   margin-top: 5vh;
 }
 
+footer a {
+  transition: all 0.2s ease-in;
+  margin-top: 2px;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #b20061;
+  transform: translateY(-1.06em);
+}
+
+
+
 /* Welcome to Media Query Land! */
 /* Tread carefully yu gi boy */
 
@@ -707,6 +721,10 @@ footer {
     margin-bottom: 10px;
     max-width: 700px;
     margin-right: 0;
+  }
+
+  footer p {
+    font-size: 0.8rem;
   }
 }
 

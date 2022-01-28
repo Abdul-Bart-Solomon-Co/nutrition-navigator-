@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { GiHamburgerMenu, GiFruitTree } from 'react-icons/gi';
+import { FaLinkedin, FaGithubSquare, FaCopyright } from 'react-icons/fa';
 
 
 
@@ -156,8 +157,7 @@ function App() {
       <footer>
         <p>
           {" "}
-          2022 Created @ Juno College by Abdul Abdi, Bart Batalinski and Solomon
-          Serry{" "}
+          <FaCopyright /> 2022 Created @ <a href="https://junocollege.com/">Juno College</a> by <a href="https://www.linkedin.com/in/abdul-abdi-5321871b2/"> <FaLinkedin /> </a>Abdul Abdi<a href="https://github.com/Abdul1Abdi"> <FaGithubSquare /> </a>, <a href="https://www.linkedin.com/in/bart-batalinski/"> <FaLinkedin /> </a>Bart Batalinski<a href="https://github.com/bbatal"> <FaGithubSquare /> </a> and <a href="https://www.linkedin.com/in/solomon-serry-b931b3225"> <FaLinkedin /> </a>Solomon Serry<a href="https://github.com/SolomonSerry"> <FaGithubSquare /> </a>{" "}
         </p>
       </footer>
 
