@@ -13,7 +13,7 @@ const Pagination = (props) => {
     const { data, RenderedComponent, title, dataLimit, componentProps } = props;
     let pageLimit = props.pageLimit;
     const pages = Math.round(data.length/dataLimit)
-    const [ currentPage, setCurrentPage ] =useState(1)
+    const [ currentPage, setCurrentPage ] = useState(1)
     //If the maximum number of pages possible based on the data limit is less then the set page limit
     // This will reduce the page limit to that. eg if page limit is set to 5 when pagination is called
     // But there is only enough data for 3 pages based on the datalimit per page then it will only show 3 pages

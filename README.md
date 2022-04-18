@@ -1,10 +1,31 @@
-# Getting Started with Create React App
+# Nutrition Navigator: Find out what your favorite foods consist off and how they stack up against one another
+
+## Description
+
+Simple food searching app which uses the [Nutrionix API](https://www.nutritionix.com/) to display lists of food items based on inputted keywords and utilizes these major technologies: React, Firebase, CSS, ChartJS
+
+## Challenges/Features
+
+- Working with a post request for the "nutrient details" endpoint that required headers
+- creating a pagination component that takes in an array of data and outputs a spliced array, is reusable and dynamic
+- passing props through multiple components (prop drilling)
+- Saving/Retrieving data to/from Firebase
+- error handling on maxed out API calls, missing data
+- making responsive for all screen sizes using flexbox
+- Loading states 
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Installation and Setup Instructions
+
+### `clone repo`
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs requisite modules needed to run project
 
 ### `npm start`
 
@@ -14,57 +35,19 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## Reflection
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This React app lets users save food items details from search results and displays a food Details view from searched items. Users can compare up to three different foods on one chart and have an unlimited number of charts.
 
-### `npm run build`
+This was a group project done by [Solomon Serry](https://github.com/SolomonSerry), [Abdul Abdi](https://github.com/Abdul1Abdi), and [Bart Batalinski](https://github.com/bbatal) as a culminating final project at Juno College of Technology. Working in a team and the designing and agreeing on the flow of the project was the primary challenge for all of us and figuring out how routing and different technologies like ChartJS, Pagination, and multiple endpoints would fit in and what the timelines would be for these to be implemented taught us all a lot about ironing out details early on. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project is easy to use, scalable, reusable (user profiles can be added, authentication, and other features can easily be fit in). Has a modern look and feel, for mobile, tablet, and desktop. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Project      | Home Page                                    |
+|--------------|----------------------------------------------|
+| React        | <https://reactjs.org/>                       |
+| ChartJS      | <https://www.chartjs.org/>                   |
+| Firebase     | <https://firebase.google.com/>               |
+| Axios        | <https://www.npmjs.com/package/axios>        |
