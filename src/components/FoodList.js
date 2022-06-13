@@ -4,9 +4,7 @@ import { useState, useEffect } from 'react';
 import { filterByTagId, makeNutritionObj } from "../utils.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Pagination from "./Pagination.js";
-import FoodListItem from "./FoodListItem.js";
-import BrandedFoodListItem from "./BrandedFoodListItem";
+
 
 import { BsPatchQuestionFill } from "react-icons/bs"
 
@@ -17,6 +15,7 @@ import { Oval } from "react-loader-spinner";
 import firebaseProject from '../firebaseSetup.js';
 import { getDatabase, ref, push } from 'firebase/database';
 import { Modal } from "./Modal";
+import RenderFoodLists from "./RenderFoodLists";
 
 
 export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodItemDetails }) => {
@@ -28,7 +27,6 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
     const [ searchTerm, setSearchTerm ] = useState('');
     const [ userInput, setUserInput ] = useState('');
     const [ foodItemName, setFoodItemName ] = useState("");
-    const [ foodTypeListed, setFoodTypeListed ] = useState("common");
     const [ queryLoading, setQueryLoading ] = useState(false);
 
     // const [ foodItemDetails, setFoodItemDetails ] = useState({});
@@ -161,15 +159,7 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         setUserInput(event.target.value);
     }
 
-    const handleDetailClick = (foodName) => {
-        setFoodItemName(foodName);
-        setDisabled(false);
-    }
-
-    const handleBrandedDetailClick = (nixId) => {
-        setBrandId(nixId);
-        setDisabled(false);
-    }
+    
 
      // handles uploading data to firebase
     const handleSave = (foodName) => {
@@ -196,14 +186,6 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
         setShowModal(prev => !prev)
     }
 
-
-    const handleCommonType = () => {
-        setFoodTypeListed("common");
-    }
-
-    const handleBrandedType = () => {
-        setFoodTypeListed("branded");
-    }
     // sets disabled class
     const setDisabledButton = () => {
         setDisabled(true);
@@ -227,71 +209,20 @@ export const FoodList = ({ handleCompare, savedFood, foodItemDetails, setFoodIte
             
             <div className="foodResultsContainer wrapper">
                 <div className="searchList">
-                    {
-                        //Shows either loader or the data depending on state
+                    { //Shows either loader or the data depending on state
                     queryLoading 
                         ?
                         <div className="loader">
                             <Oval color="#b20061" height={80} width={80} />
                         </div>
-                        : <>
-                                {/* Buttons that toggle common and branded foot lists */}
-
-                                {commonFoodArray.length > 0 || brandedFoodArray.length > 0
-                                    ? <div className="foodTypeButtonContainer">
-                                        <button
-                                            onClick={handleCommonType}
-                                            disabled={
-                                                foodTypeListed === "common"
-                                                    ? true
-                                                    : false
-                                            }>Common Foods</button>
-
-                                        <button
-                                            onClick={handleBrandedType}
-                                            disabled={
-                                                foodTypeListed === "branded"
-                                                    ? true
-                                                    : false
-                                            }>Branded Foods</button>
-                                    </div>
-                                    : null
-                                }
-
-
-
-                                {
-                                    // Ternary changes which food list type is displayed depending on button selected
-                                    commonFoodArray.length > 0 && foodTypeListed === "common"
-                                        ? <Pagination
-                                            data={commonFoodArray}
-                                            RenderedComponent={FoodListItem}
-                                            title="Common Food"
-                                            pageLimit={5}
-                                            dataLimit={5}
-                                            componentProps={handleDetailClick}
-                                        />
-                                        : null
-                                }
-                                {
-                                    // Ternary changes which food list type is displayed depending on button selected
-                                    brandedFoodArray.length > 0 && foodTypeListed === "branded"
-                                        ? <Pagination
-                                            data={brandedFoodArray}
-                                            RenderedComponent={BrandedFoodListItem}
-                                            title="Branded Food"
-                                            pageLimit={5}
-                                            dataLimit={5}
-                                            componentProps={handleBrandedDetailClick}
-                                        />
-                                        : null
-                                }
-                          </>
-                    }
-
-                    
-                    
-                    {/* savedList ends here */}
+                        : <RenderFoodLists
+                            commonFoodArray={commonFoodArray}
+                            brandedFoodArray={brandedFoodArray}
+                            setFoodItemName={setFoodItemName}
+                            setDisabled={setDisabled}
+                            setBrandId={setBrandId}
+                        />}
+                        {/* savedList ends here */}
                 </div>
             {
             Object.keys(foodItemDetails).length > 0 && commonFoodArray.length > 0 &&
