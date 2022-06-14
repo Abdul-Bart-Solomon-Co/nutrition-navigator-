@@ -27,6 +27,7 @@ export const BarChart = ({ chartData, index, handleMutateChartsArray }) => {
 
     const [ toggle, setToggle ] = useState(false);
 
+    // custom settings for chart.js
     const nutritionOptions = {
   plugins: {
     title: {
@@ -49,6 +50,7 @@ export const BarChart = ({ chartData, index, handleMutateChartsArray }) => {
   },
 };
 
+// custom settings for chart.js
 const vitaminOptions = {
   plugins: {
     title: {

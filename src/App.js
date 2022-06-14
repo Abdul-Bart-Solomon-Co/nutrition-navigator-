@@ -18,6 +18,7 @@ function App() {
 
   const [ foodItemDetails, setFoodItemDetails ] = useState({});
   const [ comparisonsArray, setComparisonsArray ] = useState([]);
+  console.log(comparisonsArray, foodItemDetails);
 
   // keeps track of how many charts we have in the application
   const [ chartNumber, setChartNumber ] = useState(0);

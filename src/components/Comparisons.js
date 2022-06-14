@@ -40,7 +40,8 @@ const Comparisons = (props) => {
 
                     )
                 })
-            
+           
+            // <BarChart chartData={'hi'} index={1} handleMutateChartsArray={1} />
         }
             
         </section>
